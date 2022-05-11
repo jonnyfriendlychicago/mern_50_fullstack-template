@@ -30,9 +30,16 @@ function App() {
       </div>
     </header>
     <main className="row_flex_center_top ">
-      <div className="App">
-        <EntFormCmp />
-      </div>
+      <div className="row_left" id="toDoApp">
+          <Card id="taskInputForm" style = {{ width: "800px", padding: "10px", border: "2px solid black"}}>
+            
+            <EntFormCmp />
+
+          </Card>
+        </div>
+      
+
+      
 
     </main>
     </>
