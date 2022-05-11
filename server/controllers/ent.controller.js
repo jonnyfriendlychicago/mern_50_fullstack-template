@@ -4,8 +4,8 @@
 const Ent = require('../models/ent.model'); 
 
 const homePageDelivery =  (request, response) => {
-// ! Update "Hawks" below to be any other sports team, which will verify the sever you see is this newly one you just created. 
-    response.send("Hello, world.  May the Great Spirit smile upon us today.  Go Angels.")
+// ! Update "Pistons" below to be any other sports team ("Angels?") which will verify the sever you see is this newly one you just created. 
+    response.send("Hello, world.  May the Great Spirit smile upon us today.  Go Pistons.")
 }; 
 
 const createEnt = (request, response) => {

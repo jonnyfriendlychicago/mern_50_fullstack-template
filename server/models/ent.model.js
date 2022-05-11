@@ -5,7 +5,14 @@ const mongoose = require("mongoose");
 const rockOutNewCollection = new mongoose.Schema (
     {
         // ! update field names/types in this object 
-        stringField: {
+        stringFieldOne: {
+            type: String
+            , required: [true, "yo, this field is required, fool!"]
+                // min is for numbers; minlength is for string.  same thing with max
+            , maxlength: [120, "Title must be 120 characters or less"]
+            , default: "N/A"
+        }
+        , stringFieldTwo: {
             type: String
             , required: [true, "yo, this field is required, fool!"]
                 // min is for numbers; minlength is for string.  same thing with max
@@ -14,7 +21,7 @@ const rockOutNewCollection = new mongoose.Schema (
         }
         , numberField: {
             type: Number
-            , min: [1920, "no pre-1920 movies, man"]
+            // , min: [1920, "no pre-1920 movies, man"]
         }
         , enumString: {
             type: String
@@ -25,7 +32,7 @@ const rockOutNewCollection = new mongoose.Schema (
                 , "R"
                 , "NC-17"
             ]
-            , required: [true, "need a selection, dude"]
+            // , required: [true, "need a selection, dude"]
         }
         , isBooleanField: {
             type: Boolean
@@ -41,6 +48,8 @@ const rockOutNewCollection = new mongoose.Schema (
 ); 
 
 // ! update name of collection below, specific to what you want to create here.  change "ent" in next line to "students" or "users" or "widgets"
-const Ent = mongoose.model('ent', rockOutNewCollection); 
+module.exports= mongoose.model('ent', rockOutNewCollection); 
 
-module.exports = Ent; 
+// below-is-deprecated-version 
+// const Ent = mongoose.model('ent', rockOutNewCollection); 
+// module.exports = Ent; 
