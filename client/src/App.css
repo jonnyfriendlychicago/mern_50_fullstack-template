@@ -36,3 +36,354 @@
     transform: rotate(360deg);
   }
 }
+
+/* -----------BELOW added to resolve goofiness.  basically, contentContainer behaves like a dupe of 'body' but must be its own id b/c React has 'root' existing independently of body------- */
+
+#root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* -----------BELOW ADDED TO FINALLY GIVE H1/ETC some styles upon googleFont-------------------------------------- */
+
+h1 {
+  font-size: 25px; 
+}
+
+h2 {
+  font-size: 20px; 
+}
+
+h3 {
+  font-size: 15px; 
+}
+
+ul {
+  margin-left: 15px;
+}
+
+
+/* -----------BELOW COPY/PASTE FROM FRIENSHIP -------------------------------------- */
+
+.strikeThru {
+  text-decoration: line-through;
+}
+
+* {
+  margin: 0; 
+  padding: 0; 
+  font-family: 'Roboto', sans-serif; 
+  font-size: 15px;
+  /* background-color: white; */
+}
+
+/* theme color 1 */
+
+body, .submitButton_01 {
+  background-color: lightblue;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  
+  /* margin-top: 3px; */
+  /* border: 1px solid red;  */
+}
+header {
+  width: 100%; 
+  display: flex; 
+  justify-content: center; 
+  background-color: rgb(97, 97, 97); 
+  height: 100px; 
+  align-items: center;
+}
+
+.header_content {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+  width: 85%; 
+}
+
+.header_content_vert_left {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.header_content_vert_right {
+  display: flex;
+  flex-direction: column;
+  align-items:flex-end; 
+}
+
+.header_content_horiz_right {
+  display: flex;
+  justify-content: space-between; 
+  width: 125px; 
+}
+
+.header_home_link {
+  text-decoration: none;
+}
+
+a:visited {
+  color: black; 
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* align-items: center; */
+  /* margin-top: 3px; */
+  /* border: 1px solid red;  */
+  width: 85%; 
+  /* padding-left: 10%; */
+  /* padding-right: 10%; */
+  background-color: whitesmoke; 
+  /* height: 750px;  */
+  /* height: fit-content; */
+  padding-top: 10px;
+  height: fit-content;
+}
+
+.messages {
+  width: 85%;
+  background-color: whitesmoke; 
+  height: fit-content;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: black;
+  
+}
+
+.messagesErrorText {
+  color: red; 
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.registerLoginContainer {
+  height: 750px; 
+}
+
+.row_left {
+  width: 100%;
+  padding-left: 50px; 
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.row_flex_left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.row_flex_left_top {
+  display: flex;
+  justify-content: flex-start;
+  align-items:flex-start;
+  flex-wrap: wrap;
+}
+.row_flex_right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.row_flex_right_vert {
+  Margin-right: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.row_flex_center_top {
+  display: flex;
+  justify-content: center; 
+  align-items:flex-start; 
+}
+
+.container_01 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px; 
+  border: 5px solid darkgray; 
+  border-radius: 5px;
+  margin-left: 10px; 
+  margin-right: 10px;
+}
+
+.container_02 {
+  width: 600px; 
+  border: 5px solid darkgray; 
+  border-radius: 5px;
+}
+
+
+
+.table_01, .td_01, .th_01 {
+  border: 1px solid black; 
+  border-collapse: collapse;
+}
+
+.td_01, .th_01 {
+  padding: 5px; 
+  vertical-align:top; 
+  /* vertical-align: text-top; */
+}
+
+.th_01 {
+  background-color:  rgb(148, 146, 146);
+}
+
+/*---------------------------*/
+
+.table_02, .td_02, .td_02_bold, .th_02 {
+  border: 1px solid black; 
+  /* border: none;  */
+  border-collapse: collapse;
+}
+
+.td_02, .td_02_bold, .th_02 {
+  padding: 5px; 
+  vertical-align:top; 
+}
+
+.th_02 {
+  background-color:  rgb(148, 146, 146);
+}
+
+.td_02_bold {
+  font-weight: bold;
+}
+
+.td_02 {
+  width: 450px;
+}
+
+/*---------------------------*/
+
+.table_03, .td_03, .td_03_bold, .th_03 {
+  /* border: 1px solid black;  */
+  border: none; 
+  border-collapse: collapse;
+}
+
+.td_03, .td_03_bold, .th_03, .td_03_right {
+  padding: 3px; 
+  vertical-align:top; 
+}
+
+.th_03 {
+  background-color:  rgb(148, 146, 146);
+}
+
+.td_03_bold {
+  font-weight: bold;
+}
+
+.td_03, .td_03_right {
+  width: 150px;
+}
+
+.td_03 {
+  width: 300px;
+}
+
+.td_03_span2 {
+  text-align: center;
+
+}
+
+.td_03_right {
+  text-align: right;
+}
+
+
+
+.row_01 {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex_col_01 {
+  flex: 1; 
+}
+
+
+/* forms */
+
+input[type=text] {
+  /* width: 90%; */
+  padding: 2px 5px;
+  /* margin: 8px 0; */
+  /* box-sizing: border-box; */
+  border: 1px solid rgb(148, 147, 147); 
+  border-radius: 4px;
+  background-color: whitesmoke; 
+  color: rgb(0, 0, 0);
+}
+
+input[type=text]:focus {
+  outline: none;
+  border: 2px solid rgb(29, 29, 29);
+}
+
+textarea {
+  /* width: 100%; */
+  height: 150px;
+  padding: 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid rgb(148, 147, 147); 
+  border-radius: 4px;
+  background-color: whitesmoke; 
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+  border: 2px solid rgb(29, 29, 29);
+}
+
+select {
+  /* width: 100%; */
+  padding: 5px 5px;
+  border: 1px solid rgb(148, 147, 147); 
+  border-radius: 4px;
+  background-color: whitesmoke; 
+}
+
+select:focus {
+  outline: none;
+  border: 2px solid rgb(29, 29, 29);
+}
+
+
+/* input[type=button], input[type=submit], input[type=reset]  */
+.submitButton_01 {
+  /* background-color: #04AA6D; */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+
+
