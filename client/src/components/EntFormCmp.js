@@ -1,28 +1,33 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios'; 
 import {Card, Form} from 'react-bootstrap'; 
 
-const EntFormCmp = () => {
-    // const [message, messageSetter] = useState("Loading...")
+const EntFormCmp = (props) => {
+
+    const {entList, entListSetter} = props; 
     const [stringFieldOne, stringFieldOneSetter ] = useState("");
     const [stringFieldTwo, stringFieldTwoSetter] = useState("");
+    const [numberField, numberFieldSetter] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault(); 
-        axios.post("http://localhost:8000/api/ents", {
-            stringFieldOne, 
-            stringFieldTwo
-        })
+        axios
+            .post("http://localhost:8000/api/ents", {
+                stringFieldOne, 
+                stringFieldTwo, 
+                numberField
+            })
             .then(res=> {
                 console.log(res); 
                 console.log(res.data); 
+                entListSetter([...entList, res.data]); 
             })
             .catch(err => console.log(err))
     }
 
     return (
         <>
-        <Card style = {{width: '700px', padding: '10px', border: "none"}} > 
+        <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
             <h1>Form Title Goes Here</h1>
             <Form onSubmit = {handleSubmit}>
                 <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
@@ -35,13 +40,23 @@ const EntFormCmp = () => {
                     /> 
                 </Form.Group>
 
-                <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
+                <Form.Group className="mb-3 bg-white" controlId="FormGroup_02">
                     <Form.Label>stringFieldTwo:</Form.Label>
                     <Form.Control
                         style = {{width: '300px', height: "25px"}}
                         type = "textarea"
                         // value={toDo}
                         onChange ={(e) => stringFieldTwoSetter(e.target.value)}
+                    /> 
+                </Form.Group>
+
+                <Form.Group className="mb-3 bg-white" controlId="FormGroup_03">
+                    <Form.Label>numberField:</Form.Label>
+                    <Form.Control
+                        style = {{width: '300px', height: "25px"}}
+                        type = "textarea"
+                        // value={toDo}
+                        onChange ={(e) => numberFieldSetter(e.target.value)}
                     /> 
                 </Form.Group>
 

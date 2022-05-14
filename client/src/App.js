@@ -1,47 +1,46 @@
+import React from 'react'; // added this line
+// ! import routing func 
+import {Routes, Route} from 'react-router-dom';
 // ! import external css 
 import 'bootstrap/dist/css/bootstrap.min.css';
 // ! import any/all local css 
 import './App.css';
+// ! import all views
+import MainView from './views/MainView';
 // ! import all components
-import EntFormCmp from './components/EntFormCmp';
+// import EntFormCmp from './components/EntFormCmp';
+import EntDetailCmp from './components/EntDetailCmp';
 // ! import required react-bootstrap items 
-import {Card} from 'react-bootstrap';
-import React,  {useState} from 'react'; // added this line
+import {Link} from 'react-router-dom'; 
 
-function App() {
+const App = () => {
   return (
     <>
     <header>
       <div className="header_content"> 
           <div className="header_content_vert_left"> 
-              <a href="#" className="header_home_link" >
-                  <h1 >Sitename</h1>
-                  <h2>Feel the love.</h2>
-              </a>
+            <Link className="header_link" to={'/'}> 
+              <h1>Sitename</h1>
+              <h2>Site slogan</h2>
+            </Link>
           </div>
           <div className="header_content_vert_right" > 
               <h2>firstName LastName</h2>
               <p>(UserID: plcehldr)</p>
               <div className="header_content_horiz_right">
-                  <a href="#">My Profile</a>
-                  <a href="#">Logout</a>
+                  <Link className="header_link" to={'/'}>My Profile</Link>
+                  <Link className="header_link" to={'/'}>Logout</Link>
               </div>
           </div>
       </div>
     </header>
-    <main className="row_flex_center_top ">
-      <div className="row_left" id="toDoApp">
-          <Card id="taskInputForm" style = {{ width: "800px", padding: "10px", border: "2px solid black"}}>
-            
-            <EntFormCmp />
-
-          </Card>
-        </div>
-      
-
-      
-
-    </main>
+    <Routes>
+      <Route element={<MainView/>} path="/" default /> 
+      <Route element={<EntDetailCmp/>} path="/ents/:id" /> 
+    </Routes>
+    <footer>
+      <h3>Powered by Coding Dojo</h3>
+    </footer>
     </>
   );
 }

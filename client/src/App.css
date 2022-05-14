@@ -37,7 +37,7 @@
   }
 }
 
-/* -----------BELOW added to resolve goofiness.  basically, contentContainer behaves like a dupe of 'body' but must be its own id b/c React has 'root' existing independently of body------- */
+/* BELOW added to resolve goofiness.  basically, id=root behaves like a dupe of 'body.' React requies 'root' to be a child element of the body element.  Thus, root must have its own specific styling. */
 
 #root {
   width: 100%;
@@ -47,14 +47,16 @@
   align-items: center;
 }
 
+
 /* -----------BELOW ADDED TO FINALLY GIVE H1/ETC some styles upon googleFont-------------------------------------- */
 
 h1 {
-  font-size: 25px; 
+  font-size: 2rem; 
+  font-weight: bolder;
 }
 
 h2 {
-  font-size: 20px; 
+  font-size: 1.5rem; 
 }
 
 h3 {
@@ -66,11 +68,7 @@ ul {
 }
 
 
-/* -----------BELOW COPY/PASTE FROM FRIENSHIP -------------------------------------- */
-
-.strikeThru {
-  text-decoration: line-through;
-}
+/* Below started as boiler plate of python "Friendship", now customized specifically to React app template  */
 
 * {
   margin: 0; 
@@ -80,29 +78,20 @@ ul {
   /* background-color: white; */
 }
 
-/* theme color 1 */
+.strikeThru {
+  text-decoration: line-through;
+}
 
 body, .submitButton_01 {
   background-color: lightblue;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-
-  width: 100%;
-  
-  /* margin-top: 3px; */
-  /* border: 1px solid red;  */
-}
 header {
   width: 100%; 
   display: flex; 
   justify-content: center; 
   background-color: rgb(97, 97, 97); 
-  height: 100px; 
+  height: 6.75rem; 
   align-items: center;
 }
 
@@ -110,7 +99,7 @@ header {
   display: flex; 
   justify-content: space-between;
   align-items: center;
-  width: 85%; 
+  width: 93%; 
 }
 
 .header_content_vert_left {
@@ -122,41 +111,53 @@ header {
 .header_content_vert_right {
   display: flex;
   flex-direction: column;
-  align-items:flex-end; 
+  align-items:flex-end; /* this "right aligns" these vertical cascading items */
+  /* border: 0.15rem solid red;  */
 }
 
 .header_content_horiz_right {
   display: flex;
   justify-content: space-between; 
-  width: 125px; 
+  width: 9rem;
+  /* border: 0.15rem solid blue;  */
 }
 
-.header_home_link {
+.header_link {
   text-decoration: none;
+  /* font-weight: bold;  */
 }
 
-a:visited {
+.header_link:visited {
   color: black; 
 }
 
+footer {
+  width: 100%; 
+  display: flex; 
+  justify-content: center; 
+  background-color: rgb(97, 97, 97); 
+  height: 3rem; 
+  align-items: center;
+}
+
+footer h3 {
+  color: white; 
+}
+
 main {
+  width: 95%; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  /* align-items: center; */
-  /* margin-top: 3px; */
-  /* border: 1px solid red;  */
-  width: 85%; 
-  /* padding-left: 10%; */
-  /* padding-right: 10%; */
   background-color: whitesmoke; 
-  /* height: 750px;  */
-  /* height: fit-content; */
-  padding-top: 10px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   height: fit-content;
 }
 
-.messages {
+/* .messages {
   width: 85%;
   background-color: whitesmoke; 
   height: fit-content;
@@ -167,18 +168,30 @@ main {
   justify-content: flex-start;
   align-items: center;
   color: black;
-  
-}
+} */
 
-.messagesErrorText {
+/* .messagesErrorText {
   color: red; 
   font-size: 15px;
   font-weight: 900;
+} */
+
+/* .registerLoginContainer {
+  height: 750px; 
+} */
+
+.row_flex_left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.registerLoginContainer {
-  height: 750px; 
-}
+/* .main-card {
+width: 50rem; 
+padding: 1rem; 
+border: 0.1rem solid grey; 
+margin-bottom: 0.5rem;
+} */
 
 .row_left {
   width: 100%;
@@ -187,11 +200,6 @@ main {
   margin-bottom: 5px;
 }
 
-.row_flex_left {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
 
 .row_flex_left_top {
   display: flex;
