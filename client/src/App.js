@@ -1,3 +1,5 @@
+// ! findReplace all "Ent" with "YourNewEntityName" or whatever your new thing is 
+// ! THEN do similar find replace for "ent" Make sure lower case
 import React from 'react'; // added this line
 // ! import routing func 
 import {Routes, Route} from 'react-router-dom';

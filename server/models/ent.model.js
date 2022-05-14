@@ -1,3 +1,5 @@
+// ! findReplace all "Ent" with "YourNewEntityName" or whatever your new thing is 
+// ! THEN do similar find replace for "ent" Make sure lower case
 // line below required on both model and config
 const mongoose = require("mongoose"); 
 

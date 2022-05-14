@@ -1,3 +1,5 @@
+// ! findReplace all "Ent" with "YourNewEntityName" or whatever your new thing is 
+// ! THEN do similar find replace for "ent" Make sure lower case
 import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'; 
 import axios from 'axios';

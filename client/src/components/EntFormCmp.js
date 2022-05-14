@@ -1,3 +1,5 @@
+// ! findReplace all "Ent" with "YourNewEntityName" or whatever your new thing is 
+// ! THEN do similar find replace for "ent" Make sure lower case
 import React, {useState} from 'react';
 import axios from 'axios'; 
 import {Container, Row, Card, Form} from 'react-bootstrap'; 
