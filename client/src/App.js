@@ -22,8 +22,8 @@ const App = () => {
       <div className="header_content"> 
           <div className="header_content_vert_left"> 
             <Link className="header_link" to={'/'}> 
-              <h1>Sitename</h1>
-              <h2>Site slogan</h2>
+              <h1>Gizmo Management App</h1>
+              {/* <h2>Site slogan</h2> */}
             </Link>
           </div>
           <div className="header_content_vert_right" > 
