@@ -51,6 +51,12 @@ const updateGizmo = (request, response) => {
     }); 
 }; 
 
+// module.exports.updatePerson = (request, response) => {
+//     Person.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
+//         .then(updatedPerson => response.json(updatedPerson))
+//         .catch(err => response.json(err))
+// }
+
 const deleteGizmo = (request, response) => {
     Gizmo.findByIdAndDelete(request.params.id )
     .then((gizmo) => {

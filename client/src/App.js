@@ -12,6 +12,7 @@ import MainView from './views/MainView';
 // ! import all components
 // import GizmoFormCmp from './components/GizmoFormCmp';
 import GizmoDetailCmp from './components/GizmoDetailCmp';
+import GizmoUpdateCmp from './components/GizmoUpdateCmp'; 
 // ! import required react-bootstrap items 
 import {Link} from 'react-router-dom'; 
 
@@ -39,6 +40,7 @@ const App = () => {
     <Routes>
       <Route element={<MainView/>} path="/" default /> 
       <Route element={<GizmoDetailCmp/>} path="/gizmos/:id" /> 
+      <Route element={<GizmoUpdateCmp/>} path="/gizmos/edit/:id"/>
     </Routes>
     <footer>
       <h3>Powered by Coding Dojo</h3>

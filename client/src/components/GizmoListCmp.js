@@ -27,13 +27,16 @@ const GizmoListCmp = (props) => {
                     {
                         gizmoList.map((gizmo, index)=>{
                         return (
-                            // <div key={index}>
-                            <Card style = {{width: '15rem', padding: '0.5rem', border: "0.1rem solid grey",  margin: "0.25rem"}} >
+                            // <div >
+                            <Card key={index} style = {{width: '15rem', padding: '0.5rem', border: "0.1rem solid grey",  margin: "0.25rem"}} >
                                 <p >{gizmo.stringFieldOne}</p>
                                 <p> {gizmo.stringFieldTwo}</p>
                                 <p> {gizmo.numberField}</p>
                                 <p> Additional fields to be added here.</p>
-                                <Link to={`/gizmos/${gizmo._id}`}>{gizmo.stringFieldOne} Details</Link>
+                                {/* <Link to={`/gizmos/${gizmo._id}`}>{gizmo.stringFieldOne} Details</Link> */}
+                                <Link to={`/gizmos/${gizmo._id}`}>Details</Link>
+                                {/* <Link to={/gizmos/edit/" + gizmo._id}>Edit</Link> */}
+                                <Link to={`/gizmos/edit/${gizmo._id}`}>Edit</Link>
                             </Card>
                             // </div>
                         )
