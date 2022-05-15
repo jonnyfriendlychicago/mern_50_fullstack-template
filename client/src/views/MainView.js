@@ -7,6 +7,10 @@ import GizmoListCmp from '../components/GizmoListCmp';
 const MainView = (props) => {
     
     const [gizmoList, gizmoListSetter] = useState([]);
+
+    const removeFromDom = id => {
+        gizmoListSetter(gizmoList.filter(gizmo => gizmo._id !== id )); 
+    }
     
     return (
         <main>
@@ -14,7 +18,7 @@ const MainView = (props) => {
                 <GizmoFormCmp gizmoList={gizmoList} gizmoListSetter={gizmoListSetter} />
             </div>
             <div className="row_flex_left">
-                <GizmoListCmp gizmoList={gizmoList} gizmoListSetter={gizmoListSetter} />
+                <GizmoListCmp gizmoList={gizmoList} gizmoListSetter={gizmoListSetter} removeFromDom={removeFromDom} />
             </div>
         </main>
     )

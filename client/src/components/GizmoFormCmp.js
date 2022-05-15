@@ -23,6 +23,9 @@ const GizmoFormCmp = (props) => {
                 console.log(res); 
                 console.log(res.data); 
                 gizmoListSetter([...gizmoList, res.data]); 
+                stringFieldOneSetter(""); 
+                stringFieldTwoSetter(""); 
+                numberFieldSetter(""); 
             })
             .catch(err => console.log(err))
     }
@@ -38,7 +41,7 @@ const GizmoFormCmp = (props) => {
                             <Form.Control
                                 style = {{width: '300px', height: "25px"}}
                                 type = "textarea"
-                                // value={toDo}
+                                value={stringFieldOne}
                                 onChange ={(e) => stringFieldOneSetter(e.target.value)}
                             /> 
                         </Form.Group>
@@ -48,7 +51,7 @@ const GizmoFormCmp = (props) => {
                             <Form.Control
                                 style = {{width: '300px', height: "25px"}}
                                 type = "textarea"
-                                // value={toDo}
+                                value={stringFieldTwo}
                                 onChange ={(e) => stringFieldTwoSetter(e.target.value)}
                             /> 
                         </Form.Group>
@@ -58,7 +61,7 @@ const GizmoFormCmp = (props) => {
                             <Form.Control
                                 style = {{width: '300px', height: "25px"}}
                                 type = "textarea"
-                                // value={toDo}
+                                value={numberField}
                                 onChange ={(e) => numberFieldSetter(e.target.value)}
                             /> 
                         </Form.Group>

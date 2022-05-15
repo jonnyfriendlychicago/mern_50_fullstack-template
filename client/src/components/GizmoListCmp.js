@@ -3,11 +3,12 @@
 import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'; 
 import axios from 'axios';
-import {Container, Row, Card} from 'react-bootstrap'; 
+import {Container, Row, Card, Button} from 'react-bootstrap'; 
 
 const GizmoListCmp = (props) => {
     
-    const {gizmoList, gizmoListSetter} = props;
+    // const {gizmoList, gizmoListSetter} = props;
+    const {removeFromDom, gizmoList, gizmoListSetter} = props;
     
     useEffect(()=>{
     	axios
@@ -19,30 +20,34 @@ const GizmoListCmp = (props) => {
             .catch((err)=>{console.log(err)})
     }, [])
     
+    const handleDelete = (id) => {
+        axios
+            .delete('http://localhost:8000/api/gizmos/' + id)
+            .then(res => {
+                removeFromDom(id)
+            })
+            .catch(err => console.log(err))
+    }
+    
     return (
         <Container> 
             <Row>
-                {/* <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem" }}> */}
-                    <h2>Gizmos</h2>
-                    {
-                        gizmoList.map((gizmo, index)=>{
-                        return (
-                            // <div >
-                            <Card key={index} style = {{width: '15rem', padding: '0.5rem', border: "0.1rem solid grey",  margin: "0.25rem"}} >
-                                <p >{gizmo.stringFieldOne}</p>
-                                <p> {gizmo.stringFieldTwo}</p>
-                                <p> {gizmo.numberField}</p>
-                                <p> Additional fields to be added here.</p>
-                                {/* <Link to={`/gizmos/${gizmo._id}`}>{gizmo.stringFieldOne} Details</Link> */}
-                                <Link to={`/gizmos/${gizmo._id}`}>Details</Link>
-                                {/* <Link to={/gizmos/edit/" + gizmo._id}>Edit</Link> */}
-                                <Link to={`/gizmos/edit/${gizmo._id}`}>Edit</Link>
-                            </Card>
-                            // </div>
-                        )
-                        })
-                    }
-                {/* </Card> */}
+                <h2>Gizmos</h2>
+                {
+                    gizmoList.map((gizmo, index)=>{
+                    return (
+                        <Card key={index} style = {{width: '15rem', padding: '0.5rem', border: "0.1rem solid grey",  margin: "0.25rem"}} >
+                            <p >{gizmo.stringFieldOne}</p>
+                            <p> {gizmo.stringFieldTwo}</p>
+                            <p> {gizmo.numberField}</p>
+                            <p> Additional fields to be added here.</p>
+                            <Link to={`/gizmos/${gizmo._id}`}>Details</Link>
+                            <Link to={`/gizmos/edit/${gizmo._id}`}>Edit</Link>
+                            <Button onClick={(e)=>{handleDelete(gizmo._id)}}>Delete</Button>
+                        </Card>
+                    )
+                    })
+                }
             </Row>
         </Container>
     )

@@ -29,40 +29,19 @@ const GizmoUpdateCmp = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put('http://localhost:8000/api/gizmos/' + id, {
+        axios
+            .put('http://localhost:8000/api/gizmos/' + id, {
             stringFieldOne // this is shortcut syntax for firstName: firstName,
             , stringFieldTwo     
             , numberField
-        })
+            })
             .then(res => {
                 console.log(res);
-                // navigate("/home"); // this will take us back to the Main.js
                 navigate("/"); // this will take us back to the Main.js
             })
             .catch(err => console.log(err))
     }
     return (
-        <>
-            {/* <div>
-                <h1>Update a Gizmo</h1>
-                <form onSubmit={handleSubmit}>
-                    <p>
-                        <label>stringFieldOne</label><br />
-                        <input type="text" 
-                        name="stringFieldOne" 
-                        value={stringFieldOne} 
-                        onChange={(e) => { stringFieldOneSetter(e.target.value) }} />
-                    </p>
-                    <p>
-                        <label>stringFieldTwo</label><br />
-                        <input type="text" 
-                        name="stringFieldTwo"
-                        value={stringFieldTwo} 
-                        onChange={(e) => { stringFieldTwoSetter(e.target.value) }} />
-                    </p>
-                    <input type="submit" />
-                </form>
-            </div> */}
             <Container>
             <Row>
                 <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
@@ -126,7 +105,6 @@ const GizmoUpdateCmp = (props) => {
                 </Card>
             </Row>
         </Container> 
-        </>
     )
 }
 export default GizmoUpdateCmp;
