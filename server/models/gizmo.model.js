@@ -1,5 +1,5 @@
-// ! findReplace all "Ent" with "YourNewEntityName" or whatever your new thing is 
-// ! THEN do similar find replace for "ent" Make sure lower case
+// ! findReplace all "Gizmo" with "YourNewGizmoityName" or whatever your new thing is 
+// ! THEN do similar find replace for "gizmo" Make sure lower case
 // line below required on both model and config
 const mongoose = require("mongoose"); 
 
@@ -49,9 +49,9 @@ const rockOutNewCollection = new mongoose.Schema (
     }
 ); 
 
-// ! update name of collection below, specific to what you want to create here.  change "ent" in next line to "students" or "users" or "widgets"
-module.exports= mongoose.model('ent', rockOutNewCollection); 
+// ! update name of collection below, specific to what you want to create here.  change "gizmo" in next line to "studgizmos" or "users" or "widgets"
+module.exports= mongoose.model('gizmo', rockOutNewCollection); 
 
 // below-is-deprecated-version 
-// const Ent = mongoose.model('ent', rockOutNewCollection); 
-// module.exports = Ent; 
+// const Gizmo = mongoose.model('gizmo', rockOutNewCollection); 
+// module.exports = Gizmo; 

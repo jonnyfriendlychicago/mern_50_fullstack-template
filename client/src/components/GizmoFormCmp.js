@@ -1,12 +1,12 @@
-// ! findReplace all "Ent" with "YourNewEntityName" or whatever your new thing is 
-// ! THEN do similar find replace for "ent" Make sure lower case
+// ! findReplace all "Gizmo" with "YourNewGizmoityName" or whatever your new thing is 
+// ! THEN do similar find replace for "gizmo" Make sure lower case
 import React, {useState} from 'react';
 import axios from 'axios'; 
 import {Container, Row, Card, Form} from 'react-bootstrap'; 
 
-const EntFormCmp = (props) => {
+const GizmoFormCmp = (props) => {
 
-    const {entList, entListSetter} = props; 
+    const {gizmoList, gizmoListSetter} = props; 
     const [stringFieldOne, stringFieldOneSetter ] = useState("");
     const [stringFieldTwo, stringFieldTwoSetter] = useState("");
     const [numberField, numberFieldSetter] = useState("");
@@ -14,7 +14,7 @@ const EntFormCmp = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault(); 
         axios
-            .post("http://localhost:8000/api/ents", {
+            .post("http://localhost:8000/api/gizmos", {
                 stringFieldOne, 
                 stringFieldTwo, 
                 numberField
@@ -22,7 +22,7 @@ const EntFormCmp = (props) => {
             .then(res=> {
                 console.log(res); 
                 console.log(res.data); 
-                entListSetter([...entList, res.data]); 
+                gizmoListSetter([...gizmoList, res.data]); 
             })
             .catch(err => console.log(err))
     }
@@ -31,7 +31,7 @@ const EntFormCmp = (props) => {
         <Container>
             <Row>
                 <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
-                    <h2>Form Title Goes Here</h2>
+                    <h2>Enter a New Gizmo</h2>
                     <Form onSubmit = {handleSubmit}>
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
                             <Form.Label>stringFieldOne:</Form.Label>
@@ -95,4 +95,4 @@ const EntFormCmp = (props) => {
 
 }; 
 
-export default EntFormCmp; 
+export default GizmoFormCmp; 

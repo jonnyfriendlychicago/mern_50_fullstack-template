@@ -1,4 +1,4 @@
-// ! findReplace all "Ent" with "YourNewEntityName" or whatever your new thing is 
+// ! findReplace all "Gizmo" with "YourNewEntityName" or whatever your new thing is 
 // ! THEN do similar find replace for "ent" Make sure lower case
 import React from 'react'; // added this line
 // ! import routing func 
@@ -10,8 +10,8 @@ import './App.css';
 // ! import all views
 import MainView from './views/MainView';
 // ! import all components
-// import EntFormCmp from './components/EntFormCmp';
-import EntDetailCmp from './components/EntDetailCmp';
+// import GizmoFormCmp from './components/GizmoFormCmp';
+import GizmoDetailCmp from './components/GizmoDetailCmp';
 // ! import required react-bootstrap items 
 import {Link} from 'react-router-dom'; 
 
@@ -38,7 +38,7 @@ const App = () => {
     </header>
     <Routes>
       <Route element={<MainView/>} path="/" default /> 
-      <Route element={<EntDetailCmp/>} path="/ents/:id" /> 
+      <Route element={<GizmoDetailCmp/>} path="/gizmos/:id" /> 
     </Routes>
     <footer>
       <h3>Powered by Coding Dojo</h3>
