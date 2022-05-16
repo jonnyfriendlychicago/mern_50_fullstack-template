@@ -23,13 +23,13 @@ const App = () => {
       <div className="header_content"> 
           <div className="header_content_vert_left"> 
             <Link className="header_link" to={'/'}> 
-              <h1>Gizmo Management App</h1>
+              <h1 className="header_text">Gizmo Management App</h1>
               {/* <h2>Site slogan</h2> */}
             </Link>
           </div>
           <div className="header_content_vert_right" > 
-              <h2>firstName LastName</h2>
-              <p>(UserID: plcehldr)</p>
+              <h2 className="header_text">firstName LastName</h2>
+              <p className="header_text">(UserID: plcehldr)</p>
               <div className="header_content_horiz_right">
                   <Link className="header_link" to={'/'}>My Profile</Link>
                   <Link className="header_link" to={'/'}>Logout</Link>
