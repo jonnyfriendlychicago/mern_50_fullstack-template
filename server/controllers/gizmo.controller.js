@@ -62,11 +62,38 @@ module.exports = {
             .catch((err) => {response.status(400).json({message: "getGizmoById encountered an error", error: err}); }); 
     },
 
+    //! below section is original 
+    // updateGizmo : (request, response) => {
+    //     Gizmo
+    //         .findByIdAndUpdate (request.params.id, request.body , {new: true} )
+    //         .then((gizmo) => {response.json(gizmo); })
+    //         .catch((err) => {response.status(400).json({message: "updateGizmo encountered an error", error: err}); }); 
+    // }, 
+
+    // ! below section is overhauled for validation:
+
     updateGizmo : (request, response) => {
+        const {
+            stringFieldOne
+            , numberField
+            , isBoolean
+            , enumString
+            , listField
+        } = request.body; 
         Gizmo
-            .findByIdAndUpdate (request.params.id, request.body , {new: true} )
-            .then((gizmo) => {response.json(gizmo); })
-            .catch((err) => {response.status(400).json({message: "updateGizmo encountered an error", error: err}); }); 
+            .findByIdAndUpdate(
+                request.params.id
+                , {
+                    stringFieldOne: stringFieldOne
+                    , numberField: numberField
+                    , isBoolean : isBoolean
+                    , enumString: enumString
+                    , listField : listField
+                }
+                , {new: true, runValidators: true} 
+            )
+            .then((gizmo) => {response.status(201).json(gizmo); })
+            .catch(err => response.status(400).json(err))
     }, 
 
     deleteGizmo : (request, response) => {

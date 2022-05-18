@@ -13,11 +13,11 @@ const GizmoUpdateCmp = (props) => {
     const [isBoolean, isBooleanSetter] = useState(false); 
     const [enumString, enumStringSetter] = useState("");
     const [listField, listFieldSetter] = useState("");
-    
-    const navigate = useNavigate();
-    // retrieve the current values for this person so we can fill
-    // in the form with what is in the db currently
-    
+
+    const [errors, setErrors] = useState([]); //! validation addition
+
+    const navigate = useNavigate(); // retrieve the current values for this person so we can fill in the form with what is in the db currently
+
     useEffect(() => {
         axios
             .get('http://localhost:8000/api/gizmos/' + id)
@@ -43,9 +43,12 @@ const GizmoUpdateCmp = (props) => {
             })
             .then(res => {
                 console.log(res);
-                navigate("/"); // this will take us back to the Main.js; will change to go to DetailCmp soon
+                navigate("/");  // this naves you to homepage
+                // navigate(`/gizmos/${id}`); // this navs you back to DetailCmp
             })
-            .catch(err => console.log(err))
+            // .catch(err => console.log(err))
+            //! validations: above line replaced by below line
+            .catch(err=>{setErrors(err.response.data.errors);}) 
     }
     return (
             <Container>
@@ -63,6 +66,11 @@ const GizmoUpdateCmp = (props) => {
                                 onChange ={(e) => stringFieldOneSetter(e.target.value)}
                                 name="stringFieldOne"
                             /> 
+                            {/* validation addition */}
+                            { errors.stringFieldOne ? 
+                                <p style = {{color: "red"}}>{errors.stringFieldOne.message}</p>
+                                : null
+                            }
                         </Form.Group>
 
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_03">
@@ -73,7 +81,12 @@ const GizmoUpdateCmp = (props) => {
                                 value={numberField}
                                 onChange ={(e) => numberFieldSetter(e.target.value)}
                                 name="numberField"
-                            /> 
+                            />
+                            {/* validation addition  */}
+                            { errors.numberField ? 
+                                <p style = {{color: "red"}}>{errors.numberField.message}</p>
+                                : null
+                            } 
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="FormGroup_03">
@@ -85,6 +98,7 @@ const GizmoUpdateCmp = (props) => {
                                 checked={isBoolean}
                                 name="isBoolean"
                             />
+                            {/* NO validation addition here */}
                         </Form.Group>
 
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_04">
@@ -100,10 +114,11 @@ const GizmoUpdateCmp = (props) => {
                                     <option value="B">B</option>
                                     <option value="C">C</option>
                             </Form.Select>
-                            {/* { errors.enumString ? 
+                            {/* validation addition */}
+                            { errors.enumString ? 
                                 <p style = {{color: "red"}}>{errors.enumString.message}</p>
                                 : null
-                            } */}
+                            }
                         </Form.Group>
 
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
@@ -115,11 +130,12 @@ const GizmoUpdateCmp = (props) => {
                                 onChange ={(e) => listFieldSetter(e.target.value.split(', '))}
                                 // onChange ={handleChange}
                                 name="listField"
-                            /> 
-                            {/* { errors.listField ? 
+                            />
+                            {/* validation addition  */}
+                            { errors.listField ? 
                                 <p style = {{color: "red"}}>{errors.listField.message}</p>
                                 : null
-                            } */}
+                            }
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="ToDo03">
