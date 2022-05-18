@@ -3,75 +3,74 @@
 // ! THEN do similar find replace for "gizmo" Make sure lower case
 const Gizmo = require('../models/gizmo.model'); 
 
-const homePageDelivery =  (request, response) => {
-// ! Update "Pistons" below to be any other sports team ("Angels?") which will verify the sever you see is this newly one you just created. 
-    response.send("Hello, world.  May the Great Spirit smile upon us today.  Go Pistons.")
-}; 
+module.exports = {
 
-const createGizmo = (request, response) => {
-    console.log("createGizmo: request.body:", request.body)
-    Gizmo.create(request.body)
-    .then((newGizmo) => {
-        response.status(201).json(newGizmo); 
-    })
-    .catch((err) => {
-        response.status(500).json({message: "createGizmo encountered an error", error: err}); 
-    }); 
-}; 
+    homePageDelivery : (request, response) => {
+    // ! Update "Pistons" below to be any other sports team ("Angels?") which will verify the sever you see is this newly one you just created. 
+        response.send("Hello, world.  May the Great Spirit smile upon us today.  Go Pistons.")
+    }, 
 
-const getGizmos = (request, response) => {
-    Gizmo.find({})
-    .then((gizmos) => {
-        response.json(gizmos); 
-    })
-    .catch((err) => {
-        response.status(500).json({message: "getGizmos encountered an error", error: err}); 
-    }); 
-}; 
+    //! below section is original 
+    
+    // createGizmo : (request, response) => {
+    //     Gizmo
+    //         .create(request.body)
+    //         .then((newGizmo) => {response.status(201).json(newGizmo); })
+    //         .catch((err) => {response.status(500).json({message: "createGizmo encountered an error", error: err}); }); 
+    // }, 
 
-const getGizmoById = (request, response) => {
+    // ! below section is overhauled for validation:
+
+    createGizmo : (request, response) => {
+        const {
+            stringFieldOne
+            , numberField
+            , isBoolean
+            , enumString
+        } = request.body; 
+        Gizmo
+            .create( 
+                    {
+                    stringFieldOne: stringFieldOne
+                    , numberField: numberField
+                    , isBoolean : isBoolean
+                    , enumString: enumString
+                    }
+            )
+            .then((newGizmo) => {response.status(201).json(newGizmo); })
+            // .catch((err) => {response.status(400).json({message: "createGizmo encountered an error", error: err}); }); 
+            // ! above line replaced by below line
+            .catch(err => response.status(400).json(err))
+    }, 
+    
+    getGizmos : (request, response) => {
+        Gizmo
+            .find({})
+            .then((gizmos) => {response.json(gizmos); })
+            .catch((err) => {response.status(400).json({message: "getGizmos encountered an error", error: err}); }); 
+    }, 
+
+    getGizmoById : (request, response) => {
     // Gizmo.find({ "_id": request.params.id })
     // above-is-one-way-to-do-it , Mach recommends below instead.  but above is required if searching by another field.  
-    Gizmo.findById(request.params.id )
-    .then((gizmo) => {
-        response.json(gizmo); 
-    })
-    .catch((err) => {
-        response.status(500).json({message: "getGizmoById encountered an error", error: err}); 
-    }); 
+        Gizmo
+            .findById(request.params.id )
+            .then((gizmo) => {response.json(gizmo); })
+            .catch((err) => {response.status(400).json({message: "getGizmoById encountered an error", error: err}); }); 
+    },
+
+    updateGizmo : (request, response) => {
+        Gizmo
+            .findByIdAndUpdate (request.params.id, request.body , {new: true} )
+            .then((gizmo) => {response.json(gizmo); })
+            .catch((err) => {response.status(400).json({message: "updateGizmo encountered an error", error: err}); }); 
+    }, 
+
+    deleteGizmo : (request, response) => {
+        Gizmo
+            .findByIdAndDelete(request.params.id )
+            .then((gizmo) => {response.json(gizmo); })
+            .catch((err) => {response.status(400).json({message: "deleteGizmo encountered an error", error: err}); }); 
+    }
 }; 
 
-const updateGizmo = (request, response) => {
-    Gizmo.findByIdAndUpdate (request.params.id, request.body , {new: true} )
-    .then((gizmo) => {
-        response.json(gizmo); 
-    })
-    .catch((err) => {
-        response.status(500).json({message: "updateGizmo encountered an error", error: err}); 
-    }); 
-}; 
-
-// module.exports.updatePerson = (request, response) => {
-//     Person.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
-//         .then(updatedPerson => response.json(updatedPerson))
-//         .catch(err => response.json(err))
-// }
-
-const deleteGizmo = (request, response) => {
-    Gizmo.findByIdAndDelete(request.params.id )
-    .then((gizmo) => {
-        response.json(gizmo); 
-    })
-    .catch((err) => {
-        response.status(500).json({message: "deleteGizmo encountered an error", error: err}); 
-    }); 
-}; 
-
-module.exports = {
-    createGizmo, 
-    getGizmos, 
-    getGizmoById, 
-    updateGizmo, 
-    deleteGizmo, 
-    homePageDelivery
-};

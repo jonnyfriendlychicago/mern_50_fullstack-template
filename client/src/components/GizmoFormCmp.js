@@ -4,31 +4,58 @@ import React, {useState} from 'react';
 import axios from 'axios'; 
 import {Container, Row, Card, Form} from 'react-bootstrap'; 
 
+
 const GizmoFormCmp = (props) => {
 
     const {gizmoList, gizmoListSetter} = props; 
     const [stringFieldOne, stringFieldOneSetter ] = useState("");
-    const [stringFieldTwo, stringFieldTwoSetter] = useState("");
     const [numberField, numberFieldSetter] = useState("");
+    const [isBoolean, isBooleanSetter] = useState(false); 
+    const [enumString, enumStringSetter] = useState("");
+
+    const [errors, setErrors] = useState([]); // validations
+
+    // ! below placeholder for now; remainder of present code doesn't support this yet.
+    // const handleChange = (e) => {
+    //     if (e.target.name === 'isBoolean') {
+    //         gizmoListSetter({ ...gizmoList, [e.target.name]: e.target.checked });
+    //     // } else if (e.target.name === 'actors') {
+    //     //   setMovie({ ...movie, [e.target.name]: e.target.value.split(',') });
+    //     } else {
+    //         gizmoListSetter({ ...gizmoList, [e.target.name]: e.target.value });
+    //     }
+    //   };
 
     const handleSubmit = (e) => {
         e.preventDefault(); 
         axios
             .post("http://localhost:8000/api/gizmos", {
-                stringFieldOne, 
-                stringFieldTwo, 
-                numberField
+                stringFieldOne
+                , numberField
+                , isBoolean
+                , enumString
             })
             .then(res=> {
-                console.log(res); 
-                console.log(res.data); 
                 gizmoListSetter([...gizmoList, res.data]); 
                 stringFieldOneSetter(""); 
-                stringFieldTwoSetter(""); 
                 numberFieldSetter(""); 
+                isBooleanSetter(false); 
+                // enumStringSetter("noSelection"); 
+                enumStringSetter(""); 
+                setErrors([]); // remove error msg upon successful submission
             })
-            .catch(err => console.log(err))
-    }
+            // .catch(err => {
+            //     const errorResponse = err.response.data.errors; // Get the errors from err.response.data
+            //     const errorArr = []; // Define a temp error array to push the messages in
+            //     for (const key of Object.keys(errorResponse)) { // Loop through all errors and get the messages
+            //         errorArr.push(errorResponse[key].message)
+            //     }
+            //     setErrors(errorArr);
+            // })
+            // ! above catch puts all the errors in one spot at the top
+            // ! below catch is part of solution that puts the errors in line with the form group
+            .catch(err=>{setErrors(err.response.data.errors);}) 
+    }; 
 
     return (
         <Container>
@@ -36,6 +63,9 @@ const GizmoFormCmp = (props) => {
                 <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
                     <h2>Enter a New Gizmo</h2>
                     <Form onSubmit = {handleSubmit}>
+                        {/* !below puts all the validation errors together, atop the form.  comment it out to allow those items all inline instead  */}
+                        {/* {errors.map((err, index) => <p key={index}>{err}</p>)} */}
+
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
                             <Form.Label>stringFieldOne:</Form.Label>
                             <Form.Control
@@ -43,51 +73,64 @@ const GizmoFormCmp = (props) => {
                                 type = "textarea"
                                 value={stringFieldOne}
                                 onChange ={(e) => stringFieldOneSetter(e.target.value)}
+                                // onChange ={handleChange}
+                                name="stringFieldOne"
                             /> 
+                            { errors.stringFieldOne ? 
+                                <p style = {{color: "red"}}>{errors.stringFieldOne.message}</p>
+                                : null
+                            }
                         </Form.Group>
 
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_02">
-                            <Form.Label>stringFieldTwo:</Form.Label>
-                            <Form.Control
-                                style = {{width: '300px', height: "25px"}}
-                                type = "textarea"
-                                value={stringFieldTwo}
-                                onChange ={(e) => stringFieldTwoSetter(e.target.value)}
-                            /> 
-                        </Form.Group>
-
-                        <Form.Group className="mb-3 bg-white" controlId="FormGroup_03">
                             <Form.Label>numberField:</Form.Label>
                             <Form.Control
                                 style = {{width: '300px', height: "25px"}}
-                                type = "textarea"
+                                // type = "textarea"
+                                type = "number"
                                 value={numberField}
                                 onChange ={(e) => numberFieldSetter(e.target.value)}
-                            /> 
+                                // onChange ={handleChange}
+                                name="numberField"
+                            />
+                            { errors.numberField ? 
+                                <p style = {{color: "red"}}>{errors.numberField.message}</p>
+                                : null
+                            } 
                         </Form.Group>
 
-                        {/* below is fine, but not updated yet wed 5/11 */}
+                        <Form.Group className="mb-3" controlId="FormGroup_03">
+                            <Form.Check
+                                type = "checkbox"
+                                label="isBoolean"
+                                onChange ={(e) => isBooleanSetter(e.target.checked)}
+                                // below is required so that the form can be rest
+                                checked={isBoolean}
+                                name="isBoolean"
+                            />
+                        </Form.Group>
 
-                        {/* <Form.Group className="mb-3 bg-white" controlId="FormGroup_02">
-                            <Form.Label>Work Area:</Form.Label>
+                        <Form.Group className="mb-3 bg-white" controlId="FormGroup_04">
+                            <Form.Label>enumString:</Form.Label>
                             <Form.Select 
                                     style = {{width: '300px', height: '35px'}} 
                                     aria-label="Default select example"
-                                    onChange={ workAreaHandle }  >
-                                    <option selected></option>
-                                    <option value="diet">Diet</option>
-                                    <option value="fitWell">Fitness/Wellness</option>
-                                    <option value="homeMaintenance">Home Maintenance</option>
-                                    <option value="work">Work</option>
-                                    <option value="kids">Kids</option>
-                                    <option value="contEd">Cont'd Ed/Skills</option>
-                                    <option value="social">Social</option>
-                                    <option value="yourTime">Your Thing</option>
+                                    onChange ={(e) => enumStringSetter(e.target.value)}
+                                    value={enumString}
+                                    >
+                                    <option value="noSelection"></option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
                             </Form.Select>
-                        </Form.Group> */}
+                            { errors.enumString ? 
+                                <p style = {{color: "red"}}>{errors.enumString.message}</p>
+                                : null
+                            }
+                        </Form.Group>
 
                         <Form.Group className="mb-3" controlId="ToDo03">
-                            <Form.Control style = {{width: "100px"}} className="btn btn-primary" type = "submit" value="Submit it!"/>
+                            <Form.Control style = {{width: "5rem"}} className="btn btn-primary" type = "submit" value="Submit"/>
                         </Form.Group>
                     </Form> 
                 </Card>

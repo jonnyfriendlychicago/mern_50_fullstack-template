@@ -9,7 +9,7 @@ import {Container, Row, Card, Form} from 'react-bootstrap';
 const GizmoUpdateCmp = (props) => {
     const { id } = useParams(); //this process is identical to the one we used with our Details.js component
     const [stringFieldOne, stringFieldOneSetter ] = useState("");
-    const [stringFieldTwo, stringFieldTwoSetter] = useState("");
+    // const [stringFieldTwo, stringFieldTwoSetter] = useState("");
     const [numberField, numberFieldSetter] = useState("");
     
     const navigate = useNavigate();
@@ -21,18 +21,18 @@ const GizmoUpdateCmp = (props) => {
             .get('http://localhost:8000/api/gizmos/' + id)
             .then(res => {
                 stringFieldOneSetter(res.data.stringFieldOne);
-                stringFieldTwoSetter(res.data.stringFieldTwo);
+                // stringFieldTwoSetter(res.data.stringFieldTwo);
                 numberFieldSetter(res.data.numberField);
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [id])
 
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
             .put('http://localhost:8000/api/gizmos/' + id, {
             stringFieldOne // this is shortcut syntax for firstName: firstName,
-            , stringFieldTwo     
+            // , stringFieldTwo     
             , numberField
             })
             .then(res => {
@@ -58,7 +58,7 @@ const GizmoUpdateCmp = (props) => {
                             /> 
                         </Form.Group>
 
-                        <Form.Group className="mb-3 bg-white" controlId="FormGroup_02">
+                        {/* <Form.Group className="mb-3 bg-white" controlId="FormGroup_02">
                             <Form.Label>stringFieldTwo:</Form.Label>
                             <Form.Control
                                 style = {{width: '300px', height: "25px"}}
@@ -66,7 +66,7 @@ const GizmoUpdateCmp = (props) => {
                                 value={stringFieldTwo}
                                 onChange ={(e) => stringFieldTwoSetter(e.target.value)}
                             /> 
-                        </Form.Group>
+                        </Form.Group> */}
 
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_03">
                             <Form.Label>numberField:</Form.Label>
@@ -99,7 +99,7 @@ const GizmoUpdateCmp = (props) => {
                         </Form.Group> */}
 
                         <Form.Group className="mb-3" controlId="ToDo03">
-                            <Form.Control style = {{width: "100px"}} className="btn btn-primary" type = "submit" value="Submit it!"/>
+                            <Form.Control style = {{width: "100px"}} className="btn btn-primary" type = "submit" value="Update"/>
                         </Form.Group>
                     </Form> 
                 </Card>

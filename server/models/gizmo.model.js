@@ -9,40 +9,34 @@ const rockOutNewCollection = new mongoose.Schema (
         // ! update field names/types in this object 
         stringFieldOne: {
             type: String
-            , required: [true, "yo, this field is required, fool!"]
+            , required: [true, "stringFieldOne is required."]
                 // min is for numbers; minlength is for string.  same thing with max
-            , maxlength: [120, "Title must be 120 characters or less"]
-            , default: "N/A"
-        }
-        , stringFieldTwo: {
-            type: String
-            , required: [true, "yo, this field is required, fool!"]
-                // min is for numbers; minlength is for string.  same thing with max
-            , maxlength: [120, "Title must be 120 characters or less"]
+            , minlength: [5, "stringFieldOne must be 5 characters or more"]
             , default: "N/A"
         }
         , numberField: {
             type: Number
-            // , min: [1920, "no pre-1920 movies, man"]
+            , required: [true, "numberField is required."]
+            , min: [10, "numberField must be 10 or greater."]
+        }
+        , isBoolean: {
+            type: Boolean
+            , default: false
         }
         , enumString: {
             type: String
+            , required: [true, "enumString is required."]
             , enum: [
-                "G"
-                , "PG"
-                , "PG-13"
-                , "R"
-                , "NC-17"
+                "A"
+                , "B"
+                , "C"
             ]
-            // , required: [true, "need a selection, dude"]
+            , default: "C" // this doesn't really matter; it will get this value ONLY if you go back-end and don't supply.  I think.  Front end def stopping non-selection
+            // , minlength: [1, "enumString must be 1 character or more"]
         }
-        , isBooleanField: {
-            type: Boolean
-            , default: false
-         }
-         , listField: {
-            type: [String]
-        }
+        //  , listField: {
+        //     type: [String]
+        // }
     }, 
     {
         timestamps: true
@@ -52,6 +46,3 @@ const rockOutNewCollection = new mongoose.Schema (
 // ! update name of collection below, specific to what you want to create here.  change "gizmo" in next line to "studgizmos" or "users" or "widgets"
 module.exports= mongoose.model('gizmo', rockOutNewCollection); 
 
-// below-is-deprecated-version 
-// const Gizmo = mongoose.model('gizmo', rockOutNewCollection); 
-// module.exports = Gizmo; 

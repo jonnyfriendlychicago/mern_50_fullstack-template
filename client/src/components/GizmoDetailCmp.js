@@ -21,7 +21,7 @@ const GizmoDetailCmp = (props) => {
                 gizmoSetter(res.data);
             })
             .catch( err => console.log(err) )
-    }, [])
+    }, [id])
 
     const handleDelete = (id) => {
         axios
@@ -37,8 +37,9 @@ const GizmoDetailCmp = (props) => {
             <Row>
                 <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
                     <p>stringFieldOne: {gizmo.stringFieldOne}</p>
-                    <p>stringFieldTwo: {gizmo.stringFieldTwo}</p>
                     <p>numberField: {gizmo.numberField}</p>
+                    {gizmo.isBoolean ? <p>ISboolean</p> : <p>isNOTboolean</p>}
+                    <p>enumString: {gizmo.enumString}</p>
                     <p> Additional fields to be added here.</p>
                     <Button onClick={(e)=>{handleDelete(gizmo._id)}}>Delete</Button> 
                     {/* added line above */}

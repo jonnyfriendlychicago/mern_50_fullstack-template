@@ -52,7 +52,7 @@
 
 h1 {
   font-size: 2rem; 
-  font-weight: bolder;
+  font-weight:500
 }
 
 h2 {
@@ -60,11 +60,15 @@ h2 {
 }
 
 h3 {
-  font-size: 15px; 
+  font-size: 1.25rem; 
 }
 
-ul {
+/* ul {
   margin-left: 15px;
+} */
+
+p {
+  font-size: 1rem;
 }
 
 
