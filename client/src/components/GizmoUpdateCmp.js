@@ -9,8 +9,10 @@ import {Container, Row, Card, Form} from 'react-bootstrap';
 const GizmoUpdateCmp = (props) => {
     const { id } = useParams(); //this process is identical to the one we used with our Details.js component
     const [stringFieldOne, stringFieldOneSetter ] = useState("");
-    // const [stringFieldTwo, stringFieldTwoSetter] = useState("");
     const [numberField, numberFieldSetter] = useState("");
+    const [isBoolean, isBooleanSetter] = useState(false); 
+    const [enumString, enumStringSetter] = useState("");
+    const [listField, listFieldSetter] = useState("");
     
     const navigate = useNavigate();
     // retrieve the current values for this person so we can fill
@@ -21,8 +23,10 @@ const GizmoUpdateCmp = (props) => {
             .get('http://localhost:8000/api/gizmos/' + id)
             .then(res => {
                 stringFieldOneSetter(res.data.stringFieldOne);
-                // stringFieldTwoSetter(res.data.stringFieldTwo);
                 numberFieldSetter(res.data.numberField);
+                isBooleanSetter(res.data.isBoolean);
+                enumStringSetter(res.data.enumString);
+                listFieldSetter(res.data.listField);
             })
             .catch(err => console.log(err))
     }, [id])
@@ -32,12 +36,14 @@ const GizmoUpdateCmp = (props) => {
         axios
             .put('http://localhost:8000/api/gizmos/' + id, {
             stringFieldOne // this is shortcut syntax for firstName: firstName,
-            // , stringFieldTwo     
             , numberField
+            , isBoolean
+            , enumString
+            , listField 
             })
             .then(res => {
                 console.log(res);
-                navigate("/"); // this will take us back to the Main.js
+                navigate("/"); // this will take us back to the Main.js; will change to go to DetailCmp soon
             })
             .catch(err => console.log(err))
     }
@@ -50,56 +56,74 @@ const GizmoUpdateCmp = (props) => {
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
                             <Form.Label>stringFieldOne:</Form.Label>
                             <Form.Control
-                                style = {{width: '300px', height: "25px"}}
+                                style = {{width: '20rem', height: "2rem"}}
                                 type = "textarea"
                                 value={stringFieldOne}
                                 // placeholder={stringFieldOne}
                                 onChange ={(e) => stringFieldOneSetter(e.target.value)}
+                                name="stringFieldOne"
                             /> 
                         </Form.Group>
-
-                        {/* <Form.Group className="mb-3 bg-white" controlId="FormGroup_02">
-                            <Form.Label>stringFieldTwo:</Form.Label>
-                            <Form.Control
-                                style = {{width: '300px', height: "25px"}}
-                                type = "textarea"
-                                value={stringFieldTwo}
-                                onChange ={(e) => stringFieldTwoSetter(e.target.value)}
-                            /> 
-                        </Form.Group> */}
 
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_03">
                             <Form.Label>numberField:</Form.Label>
                             <Form.Control
                                 style = {{width: '300px', height: "25px"}}
-                                type = "textarea"
+                                type = "number"
                                 value={numberField}
                                 onChange ={(e) => numberFieldSetter(e.target.value)}
+                                name="numberField"
                             /> 
                         </Form.Group>
 
-                        {/* below is fine, but not updated yet wed 5/11 */}
+                        <Form.Group className="mb-3" controlId="FormGroup_03">
+                            <Form.Check
+                                type = "checkbox"
+                                label="isBoolean"
+                                onChange ={(e) => isBooleanSetter(e.target.checked)}
+                                // below is required so that the form can be rest
+                                checked={isBoolean}
+                                name="isBoolean"
+                            />
+                        </Form.Group>
 
-                        {/* <Form.Group className="mb-3 bg-white" controlId="FormGroup_02">
-                            <Form.Label>Work Area:</Form.Label>
+                        <Form.Group className="mb-3 bg-white" controlId="FormGroup_04">
+                            <Form.Label>enumString:</Form.Label>
                             <Form.Select 
-                                    style = {{width: '300px', height: '35px'}} 
+                                    style = {{width: '20rem', height: "2.5rem"}}
                                     aria-label="Default select example"
-                                    onChange={ workAreaHandle }  >
-                                    <option selected></option>
-                                    <option value="diet">Diet</option>
-                                    <option value="fitWell">Fitness/Wellness</option>
-                                    <option value="homeMaintenance">Home Maintenance</option>
-                                    <option value="work">Work</option>
-                                    <option value="kids">Kids</option>
-                                    <option value="contEd">Cont'd Ed/Skills</option>
-                                    <option value="social">Social</option>
-                                    <option value="yourTime">Your Thing</option>
+                                    onChange ={(e) => enumStringSetter(e.target.value)}
+                                    value={enumString}
+                                    >
+                                    <option value="noSelection"></option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
                             </Form.Select>
-                        </Form.Group> */}
+                            {/* { errors.enumString ? 
+                                <p style = {{color: "red"}}>{errors.enumString.message}</p>
+                                : null
+                            } */}
+                        </Form.Group>
+
+                        <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
+                            <Form.Label>listField:</Form.Label>
+                            <Form.Control
+                                style = {{width: '20rem', height: "2rem"}}
+                                type = "textarea"
+                                value={listField}
+                                onChange ={(e) => listFieldSetter(e.target.value.split(', '))}
+                                // onChange ={handleChange}
+                                name="listField"
+                            /> 
+                            {/* { errors.listField ? 
+                                <p style = {{color: "red"}}>{errors.listField.message}</p>
+                                : null
+                            } */}
+                        </Form.Group>
 
                         <Form.Group className="mb-3" controlId="ToDo03">
-                            <Form.Control style = {{width: "100px"}} className="btn btn-primary" type = "submit" value="Update"/>
+                            <Form.Control style = {{width: "5rem"}} className="btn btn-primary" type = "submit" value="Update"/>
                         </Form.Group>
                     </Form> 
                 </Card>

@@ -12,6 +12,7 @@ const GizmoFormCmp = (props) => {
     const [numberField, numberFieldSetter] = useState("");
     const [isBoolean, isBooleanSetter] = useState(false); 
     const [enumString, enumStringSetter] = useState("");
+    const [listField, listFieldSetter] = useState("");
 
     const [errors, setErrors] = useState([]); // validations
 
@@ -34,14 +35,15 @@ const GizmoFormCmp = (props) => {
                 , numberField
                 , isBoolean
                 , enumString
+                , listField 
             })
             .then(res=> {
                 gizmoListSetter([...gizmoList, res.data]); 
                 stringFieldOneSetter(""); 
                 numberFieldSetter(""); 
                 isBooleanSetter(false); 
-                // enumStringSetter("noSelection"); 
                 enumStringSetter(""); 
+                listFieldSetter(""); 
                 setErrors([]); // remove error msg upon successful submission
             })
             // .catch(err => {
@@ -69,7 +71,7 @@ const GizmoFormCmp = (props) => {
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
                             <Form.Label>stringFieldOne:</Form.Label>
                             <Form.Control
-                                style = {{width: '300px', height: "25px"}}
+                                style = {{width: '20rem', height: "2rem"}}
                                 type = "textarea"
                                 value={stringFieldOne}
                                 onChange ={(e) => stringFieldOneSetter(e.target.value)}
@@ -85,8 +87,7 @@ const GizmoFormCmp = (props) => {
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_02">
                             <Form.Label>numberField:</Form.Label>
                             <Form.Control
-                                style = {{width: '300px', height: "25px"}}
-                                // type = "textarea"
+                                style = {{width: '20rem', height: "2rem"}}
                                 type = "number"
                                 value={numberField}
                                 onChange ={(e) => numberFieldSetter(e.target.value)}
@@ -113,7 +114,7 @@ const GizmoFormCmp = (props) => {
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_04">
                             <Form.Label>enumString:</Form.Label>
                             <Form.Select 
-                                    style = {{width: '300px', height: '35px'}} 
+                                    style = {{width: '20rem', height: "2.5rem"}}
                                     aria-label="Default select example"
                                     onChange ={(e) => enumStringSetter(e.target.value)}
                                     value={enumString}
@@ -125,6 +126,22 @@ const GizmoFormCmp = (props) => {
                             </Form.Select>
                             { errors.enumString ? 
                                 <p style = {{color: "red"}}>{errors.enumString.message}</p>
+                                : null
+                            }
+                        </Form.Group>
+
+                        <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
+                            <Form.Label>listField:</Form.Label>
+                            <Form.Control
+                                style = {{width: '20rem', height: "2rem"}}
+                                type = "textarea"
+                                value={listField}
+                                onChange ={(e) => listFieldSetter(e.target.value.split(', '))}
+                                // onChange ={handleChange}
+                                name="listField"
+                            /> 
+                            { errors.listField ? 
+                                <p style = {{color: "red"}}>{errors.listField.message}</p>
                                 : null
                             }
                         </Form.Group>

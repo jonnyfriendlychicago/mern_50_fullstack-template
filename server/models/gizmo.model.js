@@ -32,11 +32,14 @@ const rockOutNewCollection = new mongoose.Schema (
                 , "C"
             ]
             , default: "C" // this doesn't really matter; it will get this value ONLY if you go back-end and don't supply.  I think.  Front end def stopping non-selection
-            // , minlength: [1, "enumString must be 1 character or more"]
         }
-        //  , listField: {
-        //     type: [String]
-        // }
+         , listField: {
+            type: [String]
+            , required: [true, "listField must have at least one entry."]
+            , minlength: [5, "listField must be 5 characters or more"]
+            , min: [1, "need an entry"]
+            , count: [1, "need at least one entry"]
+        }
     }, 
     {
         timestamps: true

@@ -37,10 +37,12 @@ const GizmoListCmp = (props) => {
                     gizmoList.map((gizmo, index)=>{
                     return (
                         <Card key={index} style = {{width: '15rem', padding: '0.5rem', border: "0.1rem solid grey",  margin: "0.25rem"}} >
-                            <p >{gizmo.stringFieldOne}</p>
-                            <p> {gizmo.numberField}</p>
+                            <p>{gizmo.stringFieldOne}</p>
+                            <p>{gizmo.numberField}</p>
                             {gizmo.isBoolean ? <p>ISboolean</p> : <p>isNOTboolean</p>}
                             <p> {gizmo.enumString}</p>
+                            <p>listField:</p>
+                            <p>{gizmo.listField && gizmo.listField.join(',')}</p>
                             <Link to={`/gizmos/${gizmo._id}`}>Details</Link>
                             <Link to={`/gizmos/edit/${gizmo._id}`}>Edit</Link>
                             <Button onClick={(e)=>{handleDelete(gizmo._id)}}>Delete</Button>

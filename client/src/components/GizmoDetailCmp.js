@@ -40,7 +40,7 @@ const GizmoDetailCmp = (props) => {
                     <p>numberField: {gizmo.numberField}</p>
                     {gizmo.isBoolean ? <p>ISboolean</p> : <p>isNOTboolean</p>}
                     <p>enumString: {gizmo.enumString}</p>
-                    <p> Additional fields to be added here.</p>
+                    <p>listField: {gizmo.listField && gizmo.listField.join(',')}</p>
                     <Button onClick={(e)=>{handleDelete(gizmo._id)}}>Delete</Button> 
                     {/* added line above */}
                 </Card>

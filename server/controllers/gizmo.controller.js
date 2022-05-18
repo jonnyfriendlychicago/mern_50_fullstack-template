@@ -27,6 +27,7 @@ module.exports = {
             , numberField
             , isBoolean
             , enumString
+            , listField
         } = request.body; 
         Gizmo
             .create( 
@@ -35,10 +36,12 @@ module.exports = {
                     , numberField: numberField
                     , isBoolean : isBoolean
                     , enumString: enumString
+                    , listField : listField
                     }
             )
             .then((newGizmo) => {response.status(201).json(newGizmo); })
-            // .catch((err) => {response.status(400).json({message: "createGizmo encountered an error", error: err}); }); 
+            // .catch((err) => {response.status(400).json({message: "createGizmo encountered an error", error: err}); // this was orig
+            // .catch((err) => {response.status(400).json({ message: 'Something went wrong in create', error: err}); // this copied from other working file
             // ! above line replaced by below line
             .catch(err => response.status(400).json(err))
     }, 
