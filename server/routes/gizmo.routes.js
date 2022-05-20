@@ -10,5 +10,8 @@ module.exports = (app) => {
     app.get("/api/gizmos/:id", GizmoController.getGizmoById); 
     app.put("/api/gizmos/:id", GizmoController.updateGizmo); 
     app.delete("/api/gizmos/:id", GizmoController.deleteGizmo); 
+    // added below for standalone
+    app.post("/api/gizmos/new",GizmoController.createGizmo); 
+    app.get("/api/gizmos/all", GizmoController.getGizmos); 
 };
 

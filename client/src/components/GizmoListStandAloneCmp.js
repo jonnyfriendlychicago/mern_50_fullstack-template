@@ -1,7 +1,7 @@
 // ! findReplace all "Gizmo" with "YourNewEntityName" or whatever your new thing is 
 // ! THEN do similar find replace for "gizmo" Make sure lower case
 import React, {useEffect} from 'react'
-// import {useState} from 'react';  //! added for onDemand Sort stuff, not working presently
+import {useState} from 'react';  //! added for onDemand Sort stuff, not working presently
 import {Link} from 'react-router-dom'; 
 import axios from 'axios';
 import {Container, Row, Card, Button
@@ -10,7 +10,9 @@ import {Container, Row, Card, Button
 
 const GizmoListCmp = (props) => {
     
-    const {removeFromDom, gizmoList, gizmoListSetter} = props;
+    // const {removeFromDom, gizmoList, gizmoListSetter} = props;
+
+    const [gizmoList, gizmoListSetter] = useState([]); 
 
     // const [data, setData] = useState([]); //! added for onDemand Sort stuff, not working presently
     // const [sortType, setSortType] = useState('stringFieldOne');  //! added for onDemand Sort stuff, not working presently
@@ -44,16 +46,17 @@ const GizmoListCmp = (props) => {
 
     
     
-    const handleDelete = (id) => {
-        axios
-            .delete('http://localhost:8000/api/gizmos/' + id)
-            .then(res => {
-                removeFromDom(id)
-            })
-            .catch(err => console.log(err))
-    }
+    // const handleDelete = (id) => {
+    //     axios
+    //         .delete('http://localhost:8000/api/gizmos/' + id)
+    //         .then(res => {
+    //             removeFromDom(id)
+    //         })
+    //         .catch(err => console.log(err))
+    // }
     
     return (
+        <main>
         <Container> 
             {/* <Row>
                 
@@ -115,6 +118,7 @@ const GizmoListCmp = (props) => {
             </Row>
             </Card>
         </Container>
+        </main>
     )
 }; 
 

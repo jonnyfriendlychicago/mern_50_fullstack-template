@@ -35,7 +35,7 @@ const GizmoUpdateCmp = (props) => {
         e.preventDefault();
         axios
             .put('http://localhost:8000/api/gizmos/' + id, {
-            stringFieldOne // this is shortcut syntax for firstName: firstName,
+            stringFieldOne 
             , numberField
             , isBoolean
             , enumString
@@ -43,14 +43,15 @@ const GizmoUpdateCmp = (props) => {
             })
             .then(res => {
                 console.log(res);
-                navigate("/");  // this naves you to homepage
-                // navigate(`/gizmos/${id}`); // this navs you back to DetailCmp
+                // navigate("/");  // this navs you to homepage
+                navigate(`/gizmos/${id}`); // this navs you back to DetailCmp
             })
             // .catch(err => console.log(err))
             //! validations: above line replaced by below line
             .catch(err=>{setErrors(err.response.data.errors);}) 
     }
     return (
+        <main>
             <Container>
             <Row>
                 <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
@@ -144,7 +145,8 @@ const GizmoUpdateCmp = (props) => {
                     </Form> 
                 </Card>
             </Row>
-        </Container> 
+        </Container>
+        </main>  
     )
 }
 export default GizmoUpdateCmp;

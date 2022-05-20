@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,7 +35,7 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 /* BELOW added to resolve goofiness.  basically, id=root behaves like a dupe of 'body.' React requies 'root' to be a child element of the body element.  Thus, root must have its own specific styling. */
 
@@ -47,6 +47,7 @@
   align-items: center;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
 
 /* -----------BELOW ADDED TO FINALLY GIVE H1/ETC some styles upon googleFont-------------------------------------- */
 
@@ -78,8 +79,14 @@ p {
   margin: 0; 
   padding: 0; 
   font-family: 'Roboto', sans-serif; 
-  font-size: 15px;
+  /* font-size: 15px; */
   /* background-color: white; */
+}
+
+.cardHeader {
+  display: flex; 
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .strikeThru {
@@ -157,13 +164,13 @@ main {
   width: 95%; 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
   background-color: whitesmoke; 
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-left: 3rem;
-  padding-right: 3rem;
-  height: fit-content;
+  /* padding-left: 1em; */
+  /* padding-right: 3rem; */
+  /* height: fit-content; */
 }
 
 /* .messages {
@@ -202,12 +209,12 @@ border: 0.1rem solid grey;
 margin-bottom: 0.5rem;
 } */
 
-.row_left {
+/* .row_left {
   width: 100%;
   padding-left: 50px; 
   margin-top: 5px;
   margin-bottom: 5px;
-}
+} */
 
 
 .row_flex_left_top {

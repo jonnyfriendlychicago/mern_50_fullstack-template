@@ -35,10 +35,9 @@ const rockOutNewCollection = new mongoose.Schema (
         }
          , listField: {
             type: [String]
-            , required: [true, "listField must have at least one entry."]
+            // , required: [true, "listField must have at least one entry."]
             , minlength: [5, "listField must be 5 characters or more"]
-            , min: [1, "need an entry"]
-            , count: [1, "need at least one entry"]
+            // , min: [1, "need an entry"]
         }
     }, 
     {

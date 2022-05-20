@@ -5,6 +5,7 @@ import axios from 'axios';
 import {useParams} from "react-router-dom";
 import {useNavigate} from "react-router-dom";// added
 import {Container, Row, Card, Button} from 'react-bootstrap'; 
+import {Link} from 'react-router-dom'; 
 
 const GizmoDetailCmp = (props) => {
 
@@ -33,19 +34,26 @@ const GizmoDetailCmp = (props) => {
     }
 
     return (
+        <main>
         <Container> 
             <Row>
                 <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
+                    <div className="cardHeader">
+                        <h2>Gizmo Profile</h2>
+                        {/* <Link to={`/gizmos/edit/${gizmo._id}`}>Edit</Link> */}
+                        <Button onClick={(e)=>{handleDelete(gizmo._id)}}>Delete</Button> 
+                    </div>
                     <p>stringFieldOne: {gizmo.stringFieldOne}</p>
                     <p>numberField: {gizmo.numberField}</p>
                     {gizmo.isBoolean ? <p>ISboolean</p> : <p>isNOTboolean</p>}
                     <p>enumString: {gizmo.enumString}</p>
                     <p>listField: {gizmo.listField && gizmo.listField.join(',')}</p>
-                    <Button onClick={(e)=>{handleDelete(gizmo._id)}}>Delete</Button> 
-                    {/* added line above */}
+                    {/* <Button onClick={(e)=>{handleDelete(gizmo._id)}}>Delete</Button>  */}
+                    <Link to={`/gizmos/edit/${gizmo._id}`}>Edit</Link>
                 </Card>
             </Row>
-        </Container> 
+        </Container>
+        </main> 
     )
 }
 export default GizmoDetailCmp;

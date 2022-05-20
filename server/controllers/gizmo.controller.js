@@ -48,7 +48,10 @@ module.exports = {
     
     getGizmos : (request, response) => {
         Gizmo
-            .find({})
+            // .find({})
+            // .find({}).sort({ createdAt: -1 }) // added to make sorty sort sort.  '-1' makes it sort in desc order. 
+            //! above works, replaced by different sort
+            .find({}).sort({ numberField: 1 , stringFieldOne: -1}) // added to make sorty sort sort.  '1' is asc, '-1' makes it sort in desc order. 
             .then((gizmos) => {response.json(gizmos); })
             .catch((err) => {response.status(400).json({message: "getGizmos encountered an error", error: err}); }); 
     }, 

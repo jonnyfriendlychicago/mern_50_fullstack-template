@@ -3,11 +3,11 @@
 import React, {useState} from 'react';
 import axios from 'axios'; 
 import {Container, Row, Card, Form} from 'react-bootstrap'; 
+import {useNavigate} from "react-router-dom"; // added below to enable "redirect" 
 
+const GizmoFormStandAloneCmp = (props) => {
 
-const GizmoFormCmp = (props) => {
-
-    const {gizmoList, gizmoListSetter} = props; 
+    // const {gizmoList, gizmoListSetter} = props; 
     const [stringFieldOne, stringFieldOneSetter ] = useState("");
     const [numberField, numberFieldSetter] = useState("");
     const [isBoolean, isBooleanSetter] = useState(false); 
@@ -15,6 +15,10 @@ const GizmoFormCmp = (props) => {
     const [listField, listFieldSetter] = useState("");
 
     const [errors, setErrors] = useState([]); // validations
+
+    const navigate = useNavigate(); // added
+
+    // const {id} = useParams(); 
 
     // ! below placeholder for now; remainder of present code doesn't support this yet.
     // const handleChange = (e) => {
@@ -30,7 +34,7 @@ const GizmoFormCmp = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault(); 
         axios
-            .post("http://localhost:8000/api/gizmos", {
+            .post("http://localhost:8000/api/gizmos/new", {
                 stringFieldOne
                 , numberField
                 , isBoolean
@@ -38,15 +42,20 @@ const GizmoFormCmp = (props) => {
                 , listField : listField.split(';')
             })
             .then(res=> {
+                console.log("res.data: ", res.data)
                 // gizmoListSetter([...gizmoList, res.data]); 
                 //! above replaced by below for sorting
-                gizmoListSetter([res.data, ...gizmoList]); 
+                // gizmoListSetter([res.data, ...gizmoList]); 
+                // above needs to be commented out on this "standalone" form
                 stringFieldOneSetter(""); 
                 numberFieldSetter(""); 
                 isBooleanSetter(false); 
                 enumStringSetter(""); 
                 listFieldSetter(""); 
                 setErrors([]); // remove error msg upon successful submission
+                // navigate("/"); // added below to enable "redirect" to homepage
+                navigate(`/gizmos/${res.data._id}`) // this will nav to newly created record
+
             })
             // .catch(err => {
             //     const errorResponse = err.response.data.errors; // Get the errors from err.response.data
@@ -62,10 +71,11 @@ const GizmoFormCmp = (props) => {
     }; 
 
     return (
+        <main>
         <Container>
             <Row>
                 <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
-                    <h2>Enter a New Gizmo</h2>
+                    <h2>StandAlone: Enter a New Gizmo</h2>
                     <Form onSubmit = {handleSubmit}>
                         {/* !below puts all the validation errors together, atop the form.  comment it out to allow those items all inline instead  */}
                         {/* {errors.map((err, index) => <p key={index}>{err}</p>)} */}
@@ -156,10 +166,11 @@ const GizmoFormCmp = (props) => {
                     </Form> 
                 </Card>
             </Row>
-        </Container> 
+        </Container>
+        </main> 
 
     )
 
 }; 
 
-export default GizmoFormCmp; 
+export default GizmoFormStandAloneCmp; 

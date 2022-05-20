@@ -10,9 +10,10 @@ import './App.css';
 // ! import all views
 import MainView from './views/MainView';
 // ! import all components
-// import GizmoFormCmp from './components/GizmoFormCmp';
 import GizmoDetailCmp from './components/GizmoDetailCmp';
 import GizmoUpdateCmp from './components/GizmoUpdateCmp'; 
+import GizmoFormStandAloneCmp from './components/GizmoFormStandAloneCmp'; // adding below for single entry page
+import GizmoListStandAloneCmp from './components/GizmoListStandAloneCmp'; // adding below for single entry page
 // ! import required react-bootstrap items 
 import {Link} from 'react-router-dom'; 
 
@@ -41,6 +42,9 @@ const App = () => {
       <Route element={<MainView/>} path="/" default /> 
       <Route element={<GizmoDetailCmp/>} path="/gizmos/:id" /> 
       <Route element={<GizmoUpdateCmp/>} path="/gizmos/edit/:id"/>
+      {/* adding below for single entry page */}
+      <Route element={<GizmoFormStandAloneCmp/>} path="/gizmos/new" /> 
+      <Route element={<GizmoListStandAloneCmp/>} path="/gizmos/all" /> 
     </Routes>
     <footer>
       <h3>Powered by Coding Dojo</h3>
