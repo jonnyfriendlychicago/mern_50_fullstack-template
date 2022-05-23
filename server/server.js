@@ -3,9 +3,9 @@ require('dotenv').config(); //! added for auth/auth
 const gizmoRoutes = require('./routes/gizmo.routes'); 
 const userRoutes = require('./routes/user.routes'); 
 const cookieParser = require('cookie-parser'); //! added for auth/auth
-
 const cors = require('cors');
 const express = require("express"); 
+
 const app = express(); 
 
 // below is "body parser"

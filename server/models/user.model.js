@@ -1,7 +1,6 @@
 const mongoose = require("mongoose"); 
 const bcrypt = require("bcrypt"); 
 
-
 const UserSchema = new mongoose.Schema({
     // firstName: {
     //   type: String
@@ -35,20 +34,19 @@ const UserSchema = new mongoose.Schema({
 );
 
 UserSchema.virtual('confirmPassword')
-  .get( () => this._confirmPassword )
-  .set( value => this._confirmPassword = value ); 
+  .get( () => this._confirmPassword ).set( value => this._confirmPassword = value ); 
 
 
 UserSchema.pre('validate', function(next) {
   if (this.password !== this.confirmPassword) {
-  this.invalidate('confirmPassword', 'Passwords must match, fool!');
-  console.log("Passwords do not match.")
-  }
+    this.invalidate('confirmPassword', 'Passwords must match, fool!');
+    console.log("Passwords do not match.")
+  }; 
   next();
 });
 
 UserSchema.pre('save', function(next) {
-  console.log("In pres-save step."); 
+  console.log("In pre-save stage."); 
   bcrypt
     .hash(this.password, 10)
     .then(hashedPassword => {
