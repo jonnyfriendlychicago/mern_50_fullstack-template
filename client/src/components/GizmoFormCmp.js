@@ -1,4 +1,4 @@
-// ! findReplace all "Gizmo" with "YourNewGizmoityName" or whatever your new thing is 
+// ! findReplace all "Gizmo" with "YourNewEntityName" or whatever your new thing is 
 // ! THEN do similar find replace for "gizmo" Make sure lower case
 import React, {useState} from 'react';
 import axios from 'axios'; 
@@ -16,7 +16,7 @@ const GizmoFormCmp = (props) => {
 
     const [errors, setErrors] = useState([]); // validations
 
-    // ! below placeholder for now; remainder of present code doesn't support this yet.
+    //! below placeholder for now; remainder of present code doesn't support this yet.
     // const handleChange = (e) => {
     //     if (e.target.name === 'isBoolean') {
     //         gizmoListSetter({ ...gizmoList, [e.target.name]: e.target.checked });
@@ -58,7 +58,11 @@ const GizmoFormCmp = (props) => {
             // })
             // ! above catch puts all the errors in one spot at the top
             // ! below catch is part of solution that puts the errors in line with the form group
-            .catch(err=>{setErrors(err.response.data.errors);}) 
+            .catch(err=>{
+                console.log(err.response)
+                setErrors(err.response.data.errors); //! this line activates all the back-end validation you've already set up
+            }) 
+
     }; 
 
     return (

@@ -1,4 +1,4 @@
-// ! findReplace all "Gizmo" with "YourNewGizmoityName" or whatever your new thing is 
+// ! findReplace all "Gizmo" with "YourNewEntityName" or whatever your new thing is 
 // ! THEN do similar find replace for "gizmo" Make sure lower case
 import React, {useState} from 'react';
 import axios from 'axios'; 

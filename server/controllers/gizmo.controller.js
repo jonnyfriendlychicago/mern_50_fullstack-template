@@ -1,7 +1,8 @@
 
-// ! findReplace all "Gizmo" with "YourNewGizmoityName" or whatever your new thing is 
+// ! findReplace all "Gizmo" with "YourNewEntityName" or whatever your new thing is 
 // ! THEN do similar find replace for "gizmo" Make sure lower case
 const Gizmo = require('../models/gizmo.model'); 
+const jwt = require("jsonwebtoken"); 
 
 module.exports = {
 
@@ -22,6 +23,7 @@ module.exports = {
     // ! below section is overhauled for validation:
 
     createGizmo : (request, response) => {
+
         const {
             stringFieldOne
             , numberField
@@ -29,31 +31,39 @@ module.exports = {
             , enumString
             , listField
         } = request.body; 
-        Gizmo
-            .create( 
-                    {
-                    stringFieldOne: stringFieldOne
-                    , numberField: numberField
-                    , isBoolean : isBoolean
-                    , enumString: enumString
-                    , listField : listField
-                    }
-            )
-            .then((newGizmo) => {response.status(201).json(newGizmo); })
-            // .catch((err) => {response.status(400).json({message: "createGizmo encountered an error", error: err}); // this was orig
-            // .catch((err) => {response.status(400).json({ message: 'Something went wrong in create', error: err}); // this copied from other working file
-            // ! above line replaced by below line
-            .catch(err => response.status(400).json(err))
+        //! need help / clarification on what's up with above & if/how it relates to below.
+        
+        const newGizmoObject = new Gizmo(request.body); 
+        const decodedJWT = jwt.decode(request.cookies.usertoken, {complete: true}); 
+        // newGizmoObject.createdBy = decodedJWT.payload.id;  
+        //! turn on line above for authentication
+        newGizmoObject
+            .save()
+
+            .then((newGizmo) => {
+                console.log(newGizmo); 
+                response.status(201).json(newGizmo) })
+            .catch( (err) => {
+                console.log(err); 
+                // response.status(400).json( {message: "createGizmo encountereed an error."})
+                //! below replaces/fixes above
+                response.status(400).json( {message: "createGizmo encountereed an error.", errors: err.errors})
+            })
     }, 
     
     getGizmos : (request, response) => {
         Gizmo
-            // .find({})
-            // .find({}).sort({ createdAt: -1 }) // added to make sorty sort sort.  '-1' makes it sort in desc order. 
-            //! above works, replaced by different sort
-            .find({}).sort({ numberField: 1 , stringFieldOne: -1}) // added to make sorty sort sort.  '1' is asc, '-1' makes it sort in desc order. 
-            .then((gizmos) => {response.json(gizmos); })
-            .catch((err) => {response.status(400).json({message: "getGizmos encountered an error", error: err}); }); 
+            .find({}).sort({enumString : 1 , numberField: 1}) // added to make sorty sort sort.  '1' is asc, '-1' makes it sort in desc order. 
+            //! below added for auth/auth updates
+            .populate("createdBy", "userName email")
+            .then((allGizmos) => {
+                console.log(allGizmos);
+                response.json(allGizmos); 
+            })
+            .catch((err) => {
+                console.log("getGizmos failed"); 
+                response.status(400).json({message: "getGizmos encountered an error", error: err}) 
+            })
     }, 
 
     getGizmoById : (request, response) => {
@@ -62,7 +72,7 @@ module.exports = {
         Gizmo
             .findById(request.params.id )
             .then((gizmo) => {response.json(gizmo); })
-            .catch((err) => {response.status(400).json({message: "getGizmoById encountered an error", error: err}); }); 
+            .catch((err) => {response.status(400).json({message: "getGizmoById encountered an error", error: err}) }) 
     },
 
     //! below section is original 

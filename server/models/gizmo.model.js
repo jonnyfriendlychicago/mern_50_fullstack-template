@@ -10,14 +10,14 @@ const rockOutNewCollection = new mongoose.Schema (
         stringFieldOne: {
             type: String
             , required: [true, "stringFieldOne is required."]
-                // min is for numbers; minlength is for string.  same thing with max
-            , minlength: [5, "stringFieldOne must be 5 characters or more"]
+            //! min is for numbers; minlength is for string.  same thing with max
+            // , minlength: [5, "stringFieldOne must be 5 characters or more"]
             , default: "N/A"
         }
         , numberField: {
             type: Number
             , required: [true, "numberField is required."]
-            , min: [10, "numberField must be 10 or greater."]
+            // , min: [10, "numberField must be 10 or greater."]
         }
         , isBoolean: {
             type: Boolean
@@ -25,20 +25,27 @@ const rockOutNewCollection = new mongoose.Schema (
         }
         , enumString: {
             type: String
-            , required: [true, "enumString is required."]
-            , enum: [
-                "A"
-                , "B"
-                , "C"
-            ]
+            // , required: [true, "enumString is required."]
+            // , enum: [
+            //     "A"
+            //     , "B"
+            //     , "C"
+            // ]
+            // ! above replaced by below, for custom error msgs
+            , enum: { values: ['A', 'B', 'C'], message: '{VALUE} is not supported' }
             , default: "C" // this doesn't really matter; it will get this value ONLY if you go back-end and don't supply.  I think.  Front end def stopping non-selection
         }
-         , listField: {
+        , listField: {
             type: [String]
             // , required: [true, "listField must have at least one entry."]
-            , minlength: [5, "listField must be 5 characters or more"]
+            // , minlength: [5, "listField must be 5 characters or more"]
             // , min: [1, "need an entry"]
         }
+        , createdBy: {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: "User"
+        }
+
     }, 
     {
         timestamps: true

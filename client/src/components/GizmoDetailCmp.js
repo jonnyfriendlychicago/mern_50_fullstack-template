@@ -9,8 +9,14 @@ import {Link} from 'react-router-dom';
 
 const GizmoDetailCmp = (props) => {
 
-    const [gizmo, gizmoSetter] = useState({})
+    const [gizmo, gizmoSetter] = useState({}); 
     const {id} = useParams(); 
+
+    //! buttonTry
+    const [likeButton, likeButtonSetter] = useState(false); 
+    const likedFunc = (e) => {
+        likeButton ? likeButtonSetter(false) :  likeButtonSetter(true) 
+    }
 
     const navigate = useNavigate(); // added
 
@@ -50,6 +56,21 @@ const GizmoDetailCmp = (props) => {
                     <p>listField: {gizmo.listField && gizmo.listField.join(',')}</p>
                     {/* <Button onClick={(e)=>{handleDelete(gizmo._id)}}>Delete</Button>  */}
                     <Link to={`/gizmos/edit/${gizmo._id}`}>Edit</Link>
+                    {/* below works one-way! */}
+                    {/* { 
+                    likeButton ? 
+                    <Button >Woof Woof! Thanks!</Button>
+                    :
+                    <Button onClick ={likedFunc}>Like me!</Button>
+                    } */}
+
+                    {/* {below works two-way, but throw the 'disabled' in there to make it oneway */}
+                    {
+                    likeButton ? 
+                    <Button onClick ={likedFunc} disabled>Woof Woof! Thanks!</Button>
+                    :
+                    <Button onClick ={likedFunc}>Like me!</Button>
+                    }
                 </Card>
             </Row>
         </Container>
