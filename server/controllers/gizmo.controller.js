@@ -12,14 +12,12 @@ module.exports = {
     }, 
 
     //! below section is original 
-    
     // createGizmo : (request, response) => {
     //     Gizmo
     //         .create(request.body)
     //         .then((newGizmo) => {response.status(201).json(newGizmo); })
     //         .catch((err) => {response.status(500).json({message: "createGizmo encountered an error", error: err}); }); 
     // }, 
-
     // ! below section is overhauled for validation:
 
     createGizmo : (request, response) => {
@@ -35,7 +33,7 @@ module.exports = {
         
         const newGizmoObject = new Gizmo(request.body); 
         const decodedJWT = jwt.decode(request.cookies.usertoken, {complete: true}); 
-        // newGizmoObject.createdBy = decodedJWT.payload.id;  
+        newGizmoObject.createdBy = decodedJWT.payload.id;  
         //! turn on line above for authentication
         newGizmoObject
             .save()
@@ -54,8 +52,7 @@ module.exports = {
     getGizmos : (request, response) => {
         Gizmo
             .find({}).sort({enumString : 1 , numberField: 1}) // added to make sorty sort sort.  '1' is asc, '-1' makes it sort in desc order. 
-            //! below added for auth/auth updates
-            .populate("createdBy", "userName email")
+            .populate("createdBy", "userName email") //!  added for auth/auth updates
             .then((allGizmos) => {
                 console.log(allGizmos);
                 response.json(allGizmos); 

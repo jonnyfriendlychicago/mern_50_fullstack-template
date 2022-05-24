@@ -8,9 +8,9 @@ module.exports = (app) => {
     app.get('/', GizmoController.homePageDelivery); 
     app.get("/api/gizmos", GizmoController.getGizmos); 
     
-    app.post("/api/gizmos", GizmoController.createGizmo); 
+    // app.post("/api/gizmos", GizmoController.createGizmo); 
     //! below replaces above with the new authentication program
-    // app.post("/api/gizmos", authenticate, GizmoController.createGizmo); 
+    app.post("/api/gizmos", authenticate, GizmoController.createGizmo); 
 
     app.get("/api/gizmos/:id", GizmoController.getGizmoById); 
     app.put("/api/gizmos/:id", GizmoController.updateGizmo); 

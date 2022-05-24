@@ -12,11 +12,11 @@ const rockOutNewCollection = new mongoose.Schema (
             , required: [true, "stringFieldOne is required."]
             //! min is for numbers; minlength is for string.  same thing with max
             // , minlength: [5, "stringFieldOne must be 5 characters or more"]
-            , default: "N/A"
+            // , default: "N/A"
         }
         , numberField: {
             type: Number
-            , required: [true, "numberField is required."]
+            // , required: [true, "numberField is required."]
             // , min: [10, "numberField must be 10 or greater."]
         }
         , isBoolean: {
@@ -43,7 +43,7 @@ const rockOutNewCollection = new mongoose.Schema (
         }
         , createdBy: {
             type: mongoose.Schema.Types.ObjectId, 
-            ref: "User"
+            ref: "user" //! this is the lowercase spelling, same as you see in the user.model in the last/exporting line
         }
 
     }, 
