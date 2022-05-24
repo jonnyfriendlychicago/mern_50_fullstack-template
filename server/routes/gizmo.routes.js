@@ -1,8 +1,8 @@
 // ! findReplace all "Gizmo" with "YourNewProName" or whatever your new thing is 
 // ! THEN do similar find replace for "gizmo" Make sure lower case
-
 const GizmoController = require("../controllers/gizmo.controller"); 
 const {authenticate} = require("../config/jwt.config"); 
+// const { getGizmos } = require("../controllers/gizmo.controller"); //! is this right?  not sure where this came from
 
 module.exports = (app) => {
     app.get('/', GizmoController.homePageDelivery); 
@@ -18,5 +18,7 @@ module.exports = (app) => {
     // added below for standalone
     app.post("/api/gizmos/new",GizmoController.createGizmo); 
     app.get("/api/gizmos/all", GizmoController.getGizmos); 
+
+    app.get("/api/gizmosbyuser/:username", authenticate, GizmoController.getAllGizmosByUser); //! adde with validation
 };
 

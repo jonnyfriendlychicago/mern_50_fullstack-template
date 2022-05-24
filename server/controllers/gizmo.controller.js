@@ -2,6 +2,7 @@
 // ! findReplace all "Gizmo" with "YourNewEntityName" or whatever your new thing is 
 // ! THEN do similar find replace for "gizmo" Make sure lower case
 const Gizmo = require('../models/gizmo.model'); 
+const User = require('../models/user.model'); 
 const jwt = require("jsonwebtoken"); 
 
 module.exports = {
@@ -32,7 +33,7 @@ module.exports = {
         //! need help / clarification on what's up with above & if/how it relates to below.
         
         const newGizmoObject = new Gizmo(request.body); 
-        const decodedJWT = jwt.decode(request.cookies.usertoken, {complete: true}); 
+        const decodedJWT = jwt.decode(request.cookies.userToken, {complete: true}); 
         newGizmoObject.createdBy = decodedJWT.payload.id;  
         //! turn on line above for authentication
         newGizmoObject
@@ -111,6 +112,45 @@ module.exports = {
             .findByIdAndDelete(request.params.id )
             .then((gizmo) => {response.json(gizmo); })
             .catch((err) => {response.status(400).json({message: "deleteGizmo encountered an error", error: err}); }); 
+    }, 
+
+    getAllGizmosByUser: (req, res) => {
+        if(req.jwtpayload.username !== req.params.username) {
+            console.log("not the user here"); 
+            User
+                .findOne({userName: req.params.username}) 
+                .then((userNotLoggedIn) => {
+                    Gizmo
+                        .find({createdBy: userNotLoggedIn._id})
+                        .populate("createdBy", "username")
+                        .then((getAllGizmosFromUser) => {
+                            console.log(getAllGizmosFromUser); 
+                            res.json(getAllGizmosFromUser); 
+                        })
+                })
+                .catch( (err) => {
+                    console.log(err); 
+                    res.status(400).json(err); 
+                })
+        }
+        
+        else {
+            console.log("current user"); 
+            console.log("req.jwtpayload.id:", req.jwtpayload.id); 
+            Gizmo
+                .find({createdBy: req.jwtpayload.id})
+                .populate("createdBy", "username")
+                .then((allGizmosFromLoggedInUser) => {
+                    console.log(allGizmosFromLoggedInUser); 
+                    res.json(allGizmosFromLoggedInUser); 
+                })
+                .catch( (err) => {
+                    console.log(err); 
+                    res.status(400).json(err); 
+                })
+        }
     }
+
+    
 }; 
 
