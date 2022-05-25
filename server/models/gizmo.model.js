@@ -41,10 +41,11 @@ const rockOutNewCollection = new mongoose.Schema (
             // , minlength: [5, "listField must be 5 characters or more"]
             // , min: [1, "need an entry"]
         }
-        , createdBy: {
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: "user" //! this is the lowercase spelling, same as you see in the user.model in the last/exporting line
-        }
+        //! commentOn below for auth/auth
+        // , createdBy: {
+        //     type: mongoose.Schema.Types.ObjectId, 
+        //     ref: "user" // this is the lowercase spelling, same as you see in the user.model in the last/exporting line
+        // }
 
     }, 
     {

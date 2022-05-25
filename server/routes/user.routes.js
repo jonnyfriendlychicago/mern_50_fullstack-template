@@ -8,5 +8,5 @@ module.exports = (app) => {
     app.post("/api/users/logout", UserController.logout);
     // app.get("/api/users", UserController.getLoggedInUser); 
     //! above shall be replaced by below
-    app.get("/api/users", authenticate, UserController.getLoggedInUser); 
+    // app.get("/api/users", authenticate, UserController.getLoggedInUser); 
 };

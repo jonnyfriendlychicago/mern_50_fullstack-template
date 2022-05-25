@@ -8,9 +8,9 @@ module.exports = (app) => {
     app.get('/', GizmoController.homePageDelivery); 
     app.get("/api/gizmos", GizmoController.getGizmos); 
     
-    // app.post("/api/gizmos", GizmoController.createGizmo); 
-    //! below replaces above with the new authentication program
-    app.post("/api/gizmos", authenticate, GizmoController.createGizmo); 
+    app.post("/api/gizmos", GizmoController.createGizmo); 
+    //! above works for non-auth/auth mode; below is opposite
+    // app.post("/api/gizmos", authenticate, GizmoController.createGizmo); 
 
     app.get("/api/gizmos/:id", GizmoController.getGizmoById); 
     app.put("/api/gizmos/:id", GizmoController.updateGizmo); 
@@ -19,6 +19,6 @@ module.exports = (app) => {
     app.post("/api/gizmos/new",GizmoController.createGizmo); 
     app.get("/api/gizmos/all", GizmoController.getGizmos); 
 
-    app.get("/api/gizmosbyuser/:username", authenticate, GizmoController.getAllGizmosByUser); //! adde with validation
+    // app.get("/api/gizmosbyuser/:username", authenticate, GizmoController.getAllGizmosByUser); //! adde with validation
 };
 
