@@ -1,4 +1,4 @@
-// ! findReplace all "Gizmo" with "YourNewGizmoityName" or whatever your new thing is 
+// ! findReplace all "Gizmo" with "YourNewEntityName" or whatever your new thing is 
 // ! THEN do similar find replace for "gizmo" Make sure lower case
 // line below required on both model and config
 const mongoose = require("mongoose"); 
@@ -42,10 +42,10 @@ const rockOutNewCollection = new mongoose.Schema (
             // , min: [1, "need an entry"]
         }
         //! commentOn below for auth/auth
-        // , createdBy: {
-        //     type: mongoose.Schema.Types.ObjectId, 
-        //     ref: "user" // this is the lowercase spelling, same as you see in the user.model in the last/exporting line
-        // }
+        , createdBy: {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: "user" // this is the lowercase spelling, same as you see in the user.model in the last/exporting line
+        }
 
     }, 
     {

@@ -34,8 +34,7 @@ module.exports = {
         
         const newGizmoObject = new Gizmo(request.body); 
         const decodedJWT = jwt.decode(request.cookies.userToken, {complete: true}); 
-        // newGizmoObject.createdBy = decodedJWT.payload.id;  
-        //! turn on line above for authentication
+        newGizmoObject.createdBy = decodedJWT.payload.id;  //! turn on for authentication
         newGizmoObject
             .save()
 
@@ -44,8 +43,6 @@ module.exports = {
                 response.status(201).json(newGizmo) })
             .catch( (err) => {
                 console.log(err); 
-                // response.status(400).json( {message: "createGizmo encountereed an error."})
-                //! below replaces/fixes above
                 response.status(400).json( {message: "createGizmo encountereed an error.", errors: err.errors})
             })
     }, 
@@ -53,7 +50,7 @@ module.exports = {
     getGizmos : (request, response) => {
         Gizmo
             .find({}).sort({enumString : 1 , numberField: 1}) // added to make sorty sort sort.  '1' is asc, '-1' makes it sort in desc order. 
-            // .populate("createdBy", "userName email") //!  added for auth/auth updates
+            .populate("createdBy", "userName email")  //! turn on for authentication
             .then((allGizmos) => {
                 console.log(allGizmos);
                 response.json(allGizmos); 

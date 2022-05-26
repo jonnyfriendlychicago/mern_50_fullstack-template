@@ -5,12 +5,25 @@ const jwt = require("jsonwebtoken");
 module.exports = {
 
     register: (req, res) => {
-        const user = new User(req.body) // welcome back OOP stuff!
-        user
+        console.log("====")
+        console.log("request.body:", req.body)
+        const {
+            username
+            , email
+            , password
+            , passwordConfirm
+        } = req.body; 
+        
+        // creating a new user and saving it as a variable
+        const userCreate = new User(req.body) // welcome back OOP stuff!
+        // user
+        //! above replaced by below
+        //saving it into your database
+        userCreate
             .save()
             .then((newUser) => {
                 console.log(newUser); 
-                console.log("Successfully registered"); 
+                console.log("user.controller: Successfully registered"); 
                 res.json ({
                     successMessage: "Thank you for registering.  You = the best.", 
                     user: newUser
@@ -33,7 +46,7 @@ module.exports = {
                     bcrypt.compare(req.body.password, userRecord.password)
                         .then( (isPasswordValid) => {
                             if(isPasswordValid) {
-                                console.log("Password is valid");
+                                console.log("user.controller: Password is valid");
                                 res.cookie(
                                     "userToken", 
                                     jwt.sign(
@@ -71,7 +84,7 @@ module.exports = {
     }, 
 
     logout: (req, res) => {
-        console.log("logging out"); 
+        console.log("user.controller: logging out"); 
         res.clearCookie('userToken');
         res.json({
             message: "You have successfully logged out.  Go in peace."
@@ -82,7 +95,7 @@ module.exports = {
 
         // const decodedJWT = jwt.decode(req.cookies.usertoken, {complete: true}) //! this line replaced by jwt.config.js file
 
-        console.log("===>>>>>", req.jwtpayload)
+        // console.log("===>>>>>", req.jwtpayload)
         User
             // .findOne({_id: decodedJWT.payload.id})
             //! above replaced by below, per jwt note above

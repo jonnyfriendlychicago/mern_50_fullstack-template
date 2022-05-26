@@ -17,12 +17,7 @@ app.use(express.urlencoded({extended: true}));
 //! for exam, use line above instead of section below
 // app.use(cors({origin: "http://localhost:3000" })); 
 // ! below added, auth/auth 
-// app.use(cors({credentials: true, origin: process.env.CLIENT_URL}));
-//! below is a required enhancement of above
-app.use(cors({
-    origin: process.env.CLIENT_URL 
-    , credentials: true 
-}));
+app.use(cors({origin: process.env.CLIENT_URL , credentials: true }));
 
 app.use(cookieParser()); //! added for auth/auth
 

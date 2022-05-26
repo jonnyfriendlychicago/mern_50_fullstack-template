@@ -30,13 +30,16 @@ const GizmoFormCmp = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault(); 
         axios
-            .post("http://localhost:8000/api/gizmos", {
+            .post(
+                "http://localhost:8000/api/gizmos", 
+                {
                 stringFieldOne
                 , numberField
                 , isBoolean
                 , enumString
                 , listField : listField.split(';')
-            })
+                }
+            )
             .then(res=> {
                 // gizmoListSetter([...gizmoList, res.data]); 
                 //! above replaced by below for sorting

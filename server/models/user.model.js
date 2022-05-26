@@ -2,15 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt"); 
 
 const UserSchema = new mongoose.Schema({
-    // firstName: {
-    //   type: String
-    //   , required: [true, "First name is required"]
-    // },
-    // lastName: {
-    //   type: String
-    //   , required: [true, "Last name is required"]
-    // },
-    userName: {
+    username: {
       type: String
       , required: [true, "User name is required"]
     },
@@ -26,20 +18,20 @@ const UserSchema = new mongoose.Schema({
     password: {
       type: String
       , required: [true, "Password is required"]
-      , minlength: [4, "Password must be 4 characters or longer"]
+      , minlength: [1, "Password must be 1 characters or longer"]
       }
     }
     , 
     {timestamps: true}
 );
 
-UserSchema.virtual('confirmPassword')
-  .get( () => this._confirmPassword ).set( value => this._confirmPassword = value ); 
+UserSchema.virtual('passwordConfirm')
+  .get( () => this._passwordConfirm ).set( value => this._passwordConfirm = value ); 
 
 
 UserSchema.pre('validate', function(next) {
-  if (this.password !== this.confirmPassword) {
-    this.invalidate('confirmPassword', 'Passwords must match, fool!');
+  if (this.password !== this.passwordConfirm) {
+    this.invalidate('passwordConfirm', 'Passwords must match, fool!');
     console.log("Passwords do not match.")
   }; 
   next();
