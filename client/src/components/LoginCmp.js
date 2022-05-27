@@ -1,6 +1,7 @@
 import React, {useState} from 'react'; 
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom';
+import {Container, Row, Card, Form} from 'react-bootstrap'; 
 
 const LoginCmp = (props) => {
     
@@ -9,7 +10,7 @@ const LoginCmp = (props) => {
     const [errorMessage, errorMessageSetter] = useState("");
     const navigate = useNavigate();
 
-    const login = (e) => {
+    const handleSubmit = (e) => {
 
         e.preventDefault(); 
         axios  
@@ -34,11 +35,29 @@ const LoginCmp = (props) => {
     }
 
     return (
-        <div>
-            <h1>Login</h1>
+        <Container>
+            <Row>
+                <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
+            <h2>Login</h2>
             <p className="error-text"> {errorMessage ? errorMessage : ""} </p>
-            <form onSubmit={login}>
-                <div>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control
+                        style = {{width: '20rem', height: "2rem"}}
+                        type = "textarea"
+                        value={email}
+                        onChange ={(e) => emailSetter(e.target.value)}
+                        // onChange ={handleChange}
+                        name="email"
+                    /> 
+                    {/* { errorList.stringFieldOne ? 
+                        <p style = {{color: "red"}}>{errorList.stringFieldOne.message}</p>
+                        : null
+                    } */}
+                </Form.Group>
+ 
+                {/* <div>
                     <label>Email</label>
                     <input
                         type="text"
@@ -46,9 +65,24 @@ const LoginCmp = (props) => {
                         value={email}
                         onChange = {(e) => emailSetter(e.target.value)}
                     />
-                </div>
+                </div> */}
 
-                <div>
+                <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
+                    <Form.Label>Password:</Form.Label>
+                    <Form.Control
+                        style = {{width: '20rem', height: "2rem"}}
+                        type = "textarea"
+                        value={password}
+                        onChange ={(e) => passwordSetter(e.target.value)}
+                        // onChange ={handleChange}
+                        name="password"
+                    /> 
+                    {/* { errorList.stringFieldOne ? 
+                        <p style = {{color: "red"}}>{errorList.stringFieldOne.message}</p>
+                        : null
+                    } */}
+                </Form.Group>
+                {/* <div>
                     <label>Password</label>
                     <input
                         type="password"
@@ -56,14 +90,20 @@ const LoginCmp = (props) => {
                         value={password}
                         onChange = {(e) => passwordSetter(e.target.value)}
                     />
-                </div>
+                </div> */}
 
-                <div className="center"> 
+                <Form.Group className="mb-3" controlId="ToDo03">
+                            <Form.Control style = {{width: "5rem"}} className="btn btn-primary" type = "submit" value="Login"/>
+                </Form.Group>
+
+                {/* <div className="center"> 
                     <button>Login!</button>
-                </div>
+                </div> */}
 
-            </form>
-        </div>
+            </Form>
+            </Card>
+            </Row>
+        </Container> 
     )
 }; 
 

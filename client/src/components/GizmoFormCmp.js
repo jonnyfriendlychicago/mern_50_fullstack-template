@@ -14,7 +14,7 @@ const GizmoFormCmp = (props) => {
     const [enumString, enumStringSetter] = useState("");
     const [listField, listFieldSetter] = useState("");
 
-    const [errors, setErrors] = useState([]); // validations
+    const [errorList, errorListSetter] = useState([]); // validations
 
     //! below placeholder for now; remainder of present code doesn't support this yet.
     // const handleChange = (e) => {
@@ -40,30 +40,28 @@ const GizmoFormCmp = (props) => {
                 , listField : listField.split(';')
                 }
             )
-            .then(res=> {
-                // gizmoListSetter([...gizmoList, res.data]); 
-                //! above replaced by below for sorting
+            .then( (res) => {
                 gizmoListSetter([res.data, ...gizmoList]); 
                 stringFieldOneSetter(""); 
                 numberFieldSetter(""); 
                 isBooleanSetter(false); 
                 enumStringSetter(""); 
                 listFieldSetter(""); 
-                setErrors([]); // remove error msg upon successful submission
+                errorListSetter([]); // remove error msg upon successful submission
             })
             // .catch(err => {
-            //     const errorResponse = err.response.data.errors; // Get the errors from err.response.data
+            //     const errorResponse = err.response.data.errorList; // Get the errorList from err.response.data
             //     const errorArr = []; // Define a temp error array to push the messages in
-            //     for (const key of Object.keys(errorResponse)) { // Loop through all errors and get the messages
+            //     for (const key of Object.keys(errorResponse)) { // Loop through all errorList and get the messages
             //         errorArr.push(errorResponse[key].message)
             //     }
-            //     setErrors(errorArr);
+            //     errorListSetter(errorArr);
             // })
-            // ! above catch puts all the errors in one spot at the top
-            // ! below catch is part of solution that puts the errors in line with the form group
+            // ! above catch puts all the errorList in one spot at the top
+            // ! below catch is part of solution that puts the errorList in line with the form group
             .catch(err=>{
-                console.log(err.response)
-                setErrors(err.response.data.errors); //! this line activates all the back-end validation you've already set up
+                // console.log(err.response)
+                errorListSetter(err.response.data.errorList); //! this line activates all the back-end validation you've already set up
             }) 
 
     }; 
@@ -74,8 +72,8 @@ const GizmoFormCmp = (props) => {
                 <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
                     <h2>Enter a New Gizmo</h2>
                     <Form onSubmit = {handleSubmit}>
-                        {/* !below puts all the validation errors together, atop the form.  comment it out to allow those items all inline instead  */}
-                        {/* {errors.map((err, index) => <p key={index}>{err}</p>)} */}
+                        {/* !below puts all the validation errorList together, atop the form.  comment it out to allow those items all inline instead  */}
+                        {/* {errorList.map((err, index) => <p key={index}>{err}</p>)} */}
 
                         <Form.Group className="mb-3 bg-white" controlId="FormGroup_01">
                             <Form.Label>stringFieldOne:</Form.Label>
@@ -87,8 +85,8 @@ const GizmoFormCmp = (props) => {
                                 // onChange ={handleChange}
                                 name="stringFieldOne"
                             /> 
-                            { errors.stringFieldOne ? 
-                                <p style = {{color: "red"}}>{errors.stringFieldOne.message}</p>
+                            { errorList.stringFieldOne ? 
+                                <p style = {{color: "red"}}>{errorList.stringFieldOne.message}</p>
                                 : null
                             }
                         </Form.Group>
@@ -103,8 +101,8 @@ const GizmoFormCmp = (props) => {
                                 // onChange ={handleChange}
                                 name="numberField"
                             />
-                            { errors.numberField ? 
-                                <p style = {{color: "red"}}>{errors.numberField.message}</p>
+                            { errorList.numberField ? 
+                                <p style = {{color: "red"}}>{errorList.numberField.message}</p>
                                 : null
                             } 
                         </Form.Group>
@@ -133,8 +131,8 @@ const GizmoFormCmp = (props) => {
                                     <option value="B">B</option>
                                     <option value="C">C</option>
                             </Form.Select>
-                            { errors.enumString ? 
-                                <p style = {{color: "red"}}>{errors.enumString.message}</p>
+                            { errorList.enumString ? 
+                                <p style = {{color: "red"}}>{errorList.enumString.message}</p>
                                 : null
                             }
                         </Form.Group>
@@ -151,8 +149,8 @@ const GizmoFormCmp = (props) => {
                                 // onChange ={handleChange}
                                 name="listField"
                             /> 
-                            { errors.listField ? 
-                                <p style = {{color: "red"}}>{errors.listField.message}</p>
+                            { errorList.listField ? 
+                                <p style = {{color: "red"}}>{errorList.listField.message}</p>
                                 : null
                             }
                         </Form.Group>

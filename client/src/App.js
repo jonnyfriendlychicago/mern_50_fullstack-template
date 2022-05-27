@@ -3,6 +3,7 @@
 import React from 'react'; // added this line
 // ! import routing func 
 import {Routes, Route} from 'react-router-dom';
+import {Link} from 'react-router-dom'; 
 // ! import external bootstrap css 
 import 'bootstrap/dist/css/bootstrap.min.css';
 // ! import any/all local css 
@@ -16,8 +17,6 @@ import GizmoUpdateCmp from './components/GizmoUpdateCmp';
 import GizmoFormStandAloneCmp from './components/GizmoFormStandAloneCmp'; // adding below for single entry page
 import GizmoListStandAloneCmp from './components/GizmoListStandAloneCmp'; // adding below for single entry page
 import ProfileCmp from './components/ProfileCmp'; 
-// ! import required react-bootstrap items 
-import {Link} from 'react-router-dom'; 
 
 const App = () => {
   return (
@@ -41,17 +40,16 @@ const App = () => {
       </div>
     </header>
     <Routes>
-      <Route element={<MainView/>} path="/home" default /> 
-      {/*! get above resolved later! threw in the 'home' as the path for now*/}
-
       <Route element={<LogRegView />} path="/" />
-
+      <Route element={<MainView/>} path="/home"  /> 
+      {/* default */}
+      {/*! get above resolved later! threw in the 'home' as the path for now*/}
+      <Route element={<ProfileCmp/>} path="/user/profile/:userName" />
       <Route element={<GizmoDetailCmp/>} path="/gizmos/:id" /> 
       <Route element={<GizmoUpdateCmp/>} path="/gizmos/edit/:id"/>
       {/* adding below for single entry page */}
       <Route element={<GizmoFormStandAloneCmp/>} path="/gizmos/new" /> 
       <Route element={<GizmoListStandAloneCmp/>} path="/gizmos/all" /> 
-      <Route element={<ProfileCmp/>} path="/user/profile/:username" />
     </Routes>
     <footer>
       <h3>Powered by Coding Dojo</h3>

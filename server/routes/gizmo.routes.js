@@ -19,6 +19,6 @@ module.exports = (app) => {
     app.post("/api/gizmos/new",GizmoController.createGizmo); 
     app.get("/api/gizmos/all", GizmoController.getGizmos); 
 
-    app.get("/api/gizmosbyuser/:username", authenticate, GizmoController.getAllGizmosByUser); //! adde with validation
+    app.get("/api/gizmosbyuser/:userName", authenticate, GizmoController.getAllGizmosByUser); //! adde with validation
 };
 

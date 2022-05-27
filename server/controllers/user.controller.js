@@ -5,33 +5,33 @@ const jwt = require("jsonwebtoken");
 module.exports = {
 
     register: (req, res) => {
-        console.log("====")
-        console.log("request.body:", req.body)
         const {
-            username
+            userName
             , email
             , password
             , passwordConfirm
         } = req.body; 
         
         // creating a new user and saving it as a variable
-        const userCreate = new User(req.body) // welcome back OOP stuff!
-        // user
-        //! above replaced by below
-        //saving it into your database
+        const userCreate = new User(req.body) // this variable is basically an instance of a class, rough analogy. 
+        
         userCreate
             .save()
+            .then( console.log("user.controller: new reg initiated."))
             .then((newUser) => {
-                console.log(newUser); 
-                console.log("user.controller: Successfully registered"); 
+                console.log("user.controller: registration success."); 
+                console.log("newUser: ", newUser); 
                 res.json ({
                     successMessage: "Thank you for registering.  You = the best.", 
                     user: newUser
                 })
             })
             .catch( (err) => {
-                console.log("registration not successful")
-                res.status(400).json(err)
+                console.log("user.controller: registration failed."); 
+                // console.log("user.controller - err._message: ", err._message)
+                console.log("user.controller - Error Details: \n", err)
+                // res.status(400).json(err)
+                res.status(400).json( {message: "register encountered an error.", errors: err.errors})
             })
     }, 
 

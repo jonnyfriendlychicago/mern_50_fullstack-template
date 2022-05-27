@@ -1,14 +1,12 @@
-import React, {useState, useEffect} from 'react'; 
+import React, {useState} from 'react'; 
 import axios from 'axios'; 
+import {Container, Row, Card, Form} from 'react-bootstrap'; 
 
 const RegisterCmp = (props) => {
 
-    const [confirmReg, confirmRegSetter] = useState(""); 
-    const [errorsList, errorsListSetter] = useState ([]); 
-
     // const [user, userSetter] = useState(
     //     {
-    //         username: ""
+    //         userName: ""
     //         , email: ""
     //         , password: ""
     //         , confirmPassword: ""
@@ -17,10 +15,14 @@ const RegisterCmp = (props) => {
 
     //! below replaces above, trying to troubleshoot non-function
 
-    const [username, usernameSetter] = useState("");
+    const [userName, userNameSetter] = useState("");
     const [email, emailSetter] = useState("");
     const [password, passwordSetter] = useState("");
     const [passwordConfirm, passwordConfirmSetter] = useState("");
+
+    const [confirmReg, confirmRegSetter] = useState(""); 
+    const [errorList, errorListSetter] = useState ([]); 
+
 
     //! below moved out into form, troubleshooting
     // const handleChange = (e) => {
@@ -33,7 +35,7 @@ const RegisterCmp = (props) => {
             .post(
                 "http://localhost:8000/api/users/register", 
                 {
-                username
+                userName
                 , email
                 , password
                 , passwordConfirm 
@@ -42,90 +44,105 @@ const RegisterCmp = (props) => {
                 {withCredentials: true }
             )
             .then( (res) => {
-                console.log(res.data); 
-                usernameSetter(""); 
+                // console.log(res.data); 
+                userNameSetter(""); 
                 emailSetter("");
                 passwordSetter("");
                 passwordConfirmSetter("");
-                errorsListSetter([]); 
+                errorListSetter([]); 
                 confirmRegSetter("Thank you for registering.  Please log in and let's party."); 
             })  
             .catch( (err) => {
-                console.log(err.response); 
-                errorsListSetter(err.response.data.errors); 
+                // console.log(err.response); 
+                errorListSetter(err.response.data.errorList); 
+                // console.log("errorsList: ", errorsList)
             })
     }; 
 
     return (
-        <div>
-            <h1>Register</h1>
-            {confirmReg ? <h4 style={{color: "green" }}>{confirmReg}</h4>: null}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username</label>
-                    {
-                    errorsList.username ? (
-                    <span className="error-text">{errorsList.username.message}</span>
-                    ) : null
-                    }
-                    <input 
-                        type="text"
-                        name="username"
-                        value={username}
-                        onChange = {(e) => usernameSetter(e.target.value)}
-                        />
-                </div>
-                
-                <div>
-                    <label>Email</label>
-                    {
-                    errorsList.email ? (
-                    <span className='error-text'>{errorsList.email.message}</span>
-                    ) : null
-                    }
-                    <input
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange = {(e) => emailSetter(e.target.value)}
-                    />
-                </div>
+        <Container>
+            <Row>
+                <Card style = {{width: '50rem', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
+                <h2>Register</h2>
+                {confirmReg ? <h4 style={{color: "green" }}>{confirmReg}</h4>: null}
+                <Form onSubmit={handleSubmit}>
+                    
+                    <Form.Group className="mb-3 bg-white" controlId="FormGroup_011">
+                        <Form.Label>Username:</Form.Label>
+                        <Form.Control
+                            style = {{width: '20rem', height: "2rem"}}
+                            type = "textarea"
+                            value={userName}
+                            onChange ={(e) => userNameSetter(e.target.value)}
+                            // onChange ={handleChange}
+                            name="userName"
+                        /> 
+                        {
+                        errorList.userName ? (
+                        <span className="error-text">{errorList.userName.message}</span>
+                        ) : null
+                        }
+                    </Form.Group>
+                    
+                    <Form.Group className="mb-3 bg-white" controlId="FormGroup_012">
+                        <Form.Label>Email:</Form.Label>
+                        <Form.Control
+                            style = {{width: '20rem', height: "2rem"}}
+                            type = "textarea"
+                            value={email}
+                            onChange ={(e) => emailSetter(e.target.value)}
+                            // onChange ={handleChange}
+                            name="email"
+                        /> 
+                        {
+                        errorList.email ? (
+                        <span className="error-text">{errorList.email.message}</span>
+                        ) : null
+                        }
+                    </Form.Group>
 
-                <div>
-                    <label>Password</label>
-                    {
-                    errorsList.password ? (
-                    <span className='error-text'>{errorsList.password.message}</span>
-                    ) : null
-                    }
-                    <input
-                        type="text"
-                        name="password"
-                        value={password}
-                        onChange = {(e) => passwordSetter(e.target.value)}
-                    />
-                </div>
-                
-                <div>
-                    <label>Confirm Password</label>
-                    {
-                    errorsList.passwordConfirm ? (
-                    <span className='error-text'>{errorsList.passwordConfirm.message}</span>
-                    ) : null
-                    }
-                    <input
-                        type="text"
-                        name="passwordConfirm"
-                        value={passwordConfirm}
-                        onChange = {(e) => passwordConfirmSetter(e.target.value)}
-                    />
-                </div>
+                    <Form.Group className="mb-3 bg-white" controlId="FormGroup_013">
+                        <Form.Label>Password:</Form.Label>
+                        <Form.Control
+                            style = {{width: '20rem', height: "2rem"}}
+                            type = "textarea"
+                            value={password}
+                            onChange ={(e) => passwordSetter(e.target.value)}
+                            // onChange ={handleChange}
+                            name="password"
+                        /> 
+                        {
+                        errorList.password ? (
+                        <span className="error-text">{errorList.password.message}</span>
+                        ) : null
+                        }
+                    </Form.Group>
+                    
+                    <Form.Group className="mb-3 bg-white" controlId="FormGroup_014">
+                        <Form.Label>Confirm Password:</Form.Label>
+                        <Form.Control
+                            style = {{width: '20rem', height: "2rem"}}
+                            type = "textarea"
+                            value={passwordConfirm}
+                            onChange ={(e) => passwordConfirmSetter(e.target.value)}
+                            // onChange ={handleChange}
+                            name="passwordConfirm"
+                        /> 
+                        {
+                        errorList.passwordConfirm ? (
+                        <span className="error-text">{errorList.passwordConfirm.message}</span>
+                        ) : null
+                        }
+                    </Form.Group>
 
-                <div className="center"> 
-                    <button>Register me!</button>
-                </div>
-            </form>
-        </div>
+                    <Form.Group className="mb-3" controlId="ToDo03">
+                        <Form.Control style = {{width: "5rem"}} className="btn btn-primary" type = "submit" value="Register"/>
+                    </Form.Group>
+
+                </Form>
+            </Card>
+            </Row>
+        </Container> 
     )
 
 }; 

@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import LoginCmp from "../components/LoginCmp";
 import RegisterCmp from "../components/RegisterCmp"; 
 
 const LogRegView = (props) => {
-
 
     return (
         <main>

@@ -112,14 +112,14 @@ module.exports = {
     }, 
 
     getAllGizmosByUser: (req, res) => {
-        if(req.jwtpayload.username !== req.params.username) {
+        if(req.jwtpayload.userName !== req.params.userName) {
             console.log("not the user here"); 
             User
-                .findOne({userName: req.params.username}) 
+                .findOne({userName: req.params.userName}) 
                 .then((userNotLoggedIn) => {
                     Gizmo
                         .find({createdBy: userNotLoggedIn._id})
-                        .populate("createdBy", "username")
+                        .populate("createdBy", "userName")
                         .then((getAllGizmosFromUser) => {
                             console.log(getAllGizmosFromUser); 
                             res.json(getAllGizmosFromUser); 
@@ -136,7 +136,7 @@ module.exports = {
             console.log("req.jwtpayload.id:", req.jwtpayload.id); 
             Gizmo
                 .find({createdBy: req.jwtpayload.id})
-                .populate("createdBy", "username")
+                .populate("createdBy", "userName")
                 .then((allGizmosFromLoggedInUser) => {
                     console.log(allGizmosFromLoggedInUser); 
                     res.json(allGizmosFromLoggedInUser); 
