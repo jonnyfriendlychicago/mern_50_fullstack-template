@@ -41,7 +41,9 @@ const RegisterCmp = (props) => {
                 , passwordConfirm 
                 } 
                 , 
-                {withCredentials: true }
+                // {withCredentials: true }
+                // , 
+                { withCredentials: true, credentials: 'include' }
             )
             .then( (res) => {
                 // console.log(res.data); 
@@ -53,8 +55,8 @@ const RegisterCmp = (props) => {
                 confirmRegSetter("Thank you for registering.  Please log in and let's party."); 
             })  
             .catch( (err) => {
-                // console.log(err.response); 
-                errorListSetter(err.response.data.errorList); 
+                console.log(err.response); 
+                errorListSetter(err.response.data.errors); 
                 // console.log("errorsList: ", errorsList)
             })
     }; 

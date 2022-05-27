@@ -12,6 +12,7 @@ import './App.css';
 import MainView from './views/MainView';
 import LogRegView from './views/LogRegView';
 // ! import all components
+import HeaderCmp from './components/HeaderCmp';
 import GizmoDetailCmp from './components/GizmoDetailCmp';
 import GizmoUpdateCmp from './components/GizmoUpdateCmp'; 
 import GizmoFormStandAloneCmp from './components/GizmoFormStandAloneCmp'; // adding below for single entry page
@@ -21,24 +22,7 @@ import ProfileCmp from './components/ProfileCmp';
 const App = () => {
   return (
     <>
-    <header>
-      <div className="header_content"> 
-          <div className="header_content_vert_left"> 
-            <Link className="header_link" to={'/'}> 
-              <h1 className="header_text">Gizmo Management App</h1>
-              {/* <h2>Site slogan</h2> */}
-            </Link>
-          </div>
-          <div className="header_content_vert_right" > 
-              <h2 className="header_text">firstName LastName</h2>
-              <p className="header_text">(UserID: plcehldr)</p>
-              <div className="header_content_horiz_right">
-                  <Link className="header_link" to={'/'}>My Profile</Link>
-                  <Link className="header_link" to={'/'}>Logout</Link>
-              </div>
-          </div>
-      </div>
-    </header>
+    <HeaderCmp />
     <Routes>
       <Route element={<LogRegView />} path="/" />
       <Route element={<MainView/>} path="/home"  /> 

@@ -39,6 +39,8 @@ const GizmoFormCmp = (props) => {
                 , enumString
                 , listField : listField.split(';')
                 }
+                , 
+                { withCredentials: true, credentials: 'include' }
             )
             .then( (res) => {
                 gizmoListSetter([res.data, ...gizmoList]); 

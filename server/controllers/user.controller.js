@@ -31,7 +31,7 @@ module.exports = {
                 // console.log("user.controller - err._message: ", err._message)
                 console.log("user.controller - Error Details: \n", err)
                 // res.status(400).json(err)
-                res.status(400).json( {message: "register encountered an error.", errors: err.errors})
+                res.status(400).json( {message: "register encountered an error JRF.", errors: err.errors}) // only change this line if you love inexplicable errors and don't value your own life hours
             })
     }, 
 

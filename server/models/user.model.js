@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const UserSchema = new mongoose.Schema({
     userName: {
       type: String
-      , required: [true, "Username is required."]
+      , required: [true, "userName is required."]
     },
     email: {
       type: String
