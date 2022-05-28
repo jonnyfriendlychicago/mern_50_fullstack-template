@@ -39,6 +39,7 @@ module.exports = {
         User
             .findOne({ email: req.body.email })
             .then( (userRecord) => {
+                console.log("user.controller: Login initiated.");
                 if(userRecord === null) {
                     res.status(400).json({message: "Invalid Login Attempt, Paisano."})
                 } 
@@ -46,7 +47,7 @@ module.exports = {
                     bcrypt.compare(req.body.password, userRecord.password)
                         .then( (isPasswordValid) => {
                             if(isPasswordValid) {
-                                console.log("user.controller: Password is valid");
+                                console.log("user.controller: User creds are valid. Login complete.");
                                 res.cookie(
                                     "userToken", 
                                     jwt.sign(
@@ -84,11 +85,12 @@ module.exports = {
     }, 
 
     logout: (req, res) => {
-        console.log("user.controller: logging out"); 
+        console.log("user.controller: Log out initiated."); 
         res.clearCookie('userToken');
         res.json({
             message: "You have successfully logged out.  Go in peace."
         }); 
+        console.log("user.controller: log out complete."); 
     }, 
 
     getLoggedInUser: (req, res) => {

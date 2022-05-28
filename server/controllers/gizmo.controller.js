@@ -52,7 +52,7 @@ module.exports = {
             .find({}).sort({enumString : 1 , numberField: 1}) // added to make sorty sort sort.  '1' is asc, '-1' makes it sort in desc order. 
             .populate("createdBy", "userName email")  //! turn on for authentication
             .then((allGizmos) => {
-                console.log(allGizmos);
+                // console.log(allGizmos);
                 response.json(allGizmos); 
             })
             .catch((err) => {

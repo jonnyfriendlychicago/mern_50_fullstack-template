@@ -23,8 +23,8 @@ const LoginCmp = (props) => {
                 {withCredentials: true}
             )
             .then( (res) => {
-                console.log(res, "res"); 
-                console.log(res.data, "is res data!"); 
+                // console.log(res, "res"); 
+                // console.log(res.data, "is res data!"); 
                 navigate("/home");
             })
             .catch( (err) => {

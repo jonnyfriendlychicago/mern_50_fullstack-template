@@ -4,7 +4,7 @@ import React, {useEffect} from 'react'
 // import {useState} from 'react';  //! added for onDemand Sort stuff, not working presently
 import {Link} from 'react-router-dom'; 
 import axios from 'axios';
-import {Container, Row, Card, Button
+import {Container, Row, Card, Table
     // , Form //! added for onDemand Sort stuff, not working presently
 } from 'react-bootstrap'; 
 
@@ -12,25 +12,6 @@ const GizmoListCmp = (props) => {
     
     const {removeFromDom, gizmoList, gizmoListSetter} = props;
 
-    // const [data, setData] = useState([]); //! added for onDemand Sort stuff, not working presently
-    // const [sortType, setSortType] = useState('stringFieldOne');  //! added for onDemand Sort stuff, not working presently
-
-    //! added for onDemand Sort stuff, not working presently
-    // useEffect(() => {
-    //     const sortArray = type => {
-    //       const types = {
-    //         stringFieldOne: 'stringFieldOne',
-    //         numberField: 'numberField'
-    //       };
-    //       const sortProperty = types[type];
-    //       const sorted = [...gizmoList].sort((a, b) => b[sortProperty] - a[sortProperty]);
-    //     //   setData(sorted);
-    //     gizmoListSetter(sorted);
-    //     };
-    
-    //     sortArray(sortType);
-    //   }, [sortType]
-    //   ); 
     
     useEffect(()=>{
     	axios
@@ -55,35 +36,11 @@ const GizmoListCmp = (props) => {
     
     return (
         <Container> 
-            {/* <Row>
-                
-                <Form.Select onChange={(e) => setSortType(e.target.value)}>
-                    <option value="stringFieldOne">stringFieldOne</option>
-                    <option value="numberField">numberField</option>
-                </Form.Select>
 
-                <Form>
-                    <Form.Group className="mb-3 bg-white" controlId="FormGroup_04">
-                        <Form.Label>Select Field to Sort By:</Form.Label>
-                        <Form.Select 
-                        style = {{width: '20rem', height: "2.5rem"}}
-                        // aria-label="Default select example"
-                        // onChange ={(e) => enumStringSetter(e.target.value)}
-                        // value={enumString}
-                        onChange={(e) => setSortType(e.target.value)}
-                        >
-                            <option value="stringFieldOne">stringFieldOne</option>
-                            <option value="numberField">numberField</option>
-                        </Form.Select>
-                    </Form.Group>
-                </Form>
-
-            </Row> */}
-            
-            
-            <Card style = {{width: '95%', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
             <Row>
+            <Card style = {{width: '95%', padding: '1rem', border: "0.1rem solid grey",  marginBottom: "0.5rem"}} > 
                 <h2>Gizmos</h2>
+                <Row>
                 {
                     gizmoList.map((gizmoInstance, index)=>{
                     return (
@@ -112,8 +69,37 @@ const GizmoListCmp = (props) => {
                     )
                     })
                 }
-            </Row>
+                </Row>
             </Card>
+            </Row>
+
+            <Row>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            gizmoList.map((gizmoInstance, index)=>{
+                            return (
+                                <tr>
+                                    <td>{gizmoInstance.stringFieldOne}</td>
+                                    <td>{gizmoInstance.numberField}</td>
+                                    <td>
+                                    <Link to={`/gizmos/${gizmoInstance._id}`}>details</Link> | <Link to={`/gizmos/edit/${gizmoInstance._id}`}>edit</Link>
+                                    </td>
+                                </tr>
+                            )
+                            })
+                        }
+                    </tbody>
+                </Table>    
+            </Row>
+
         </Container>
     )
 }; 
